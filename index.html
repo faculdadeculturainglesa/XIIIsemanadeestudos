@@ -1,3 +1,4 @@
+<!-- STREAMING_CHUNK:Configurando cabeçalho e bibliotecas Tailwind... -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -58,6 +59,7 @@
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
     
+    <!-- STREAMING_CHUNK:Renderizando a navegação (navbar)... -->
     <!-- Navegação -->
     <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-20 items-center">
@@ -82,25 +84,35 @@
         </div>
     </nav>
 
+    <!-- STREAMING_CHUNK:Construindo o novo Hero Section com Banner em Imagem... -->
     <!-- CONTEÚDO DA EDIÇÃO 2026 -->
     <div id="edition-2026" class="tab-content active">
         <!-- Hero -->
-        <header class="bg-fci-navy py-28 px-4 relative overflow-hidden text-center text-white">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-            <div class="relative z-10 max-w-4xl mx-auto">
-                <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">XIII Semana de Estudos da Faculdade Cultura Inglesa</h1>
-                <p class="text-xl md:text-2xl text-red-400 font-medium mb-10 italic font-serif">"Estudos Linguísticos: tradição e inovação em Ensino e Tradução"</p>
-                <div class="flex flex-wrap justify-center gap-4 text-white/80">
-                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-sm">
-                        <i class="fa-regular fa-calendar text-fci-red"></i> 20, 21, 22, 23 e 24 de outubro de 2026
+        <header class="bg-white py-16 px-4 relative overflow-hidden text-center border-b border-slate-100">
+            <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
+                <!-- Banner Image - Arquivo Hospedado no GitHub -->
+                <img src="banner-jornada.jpeg" alt="XIII Semana de Estudos da Faculdade Cultura Inglesa - Estudos linguísticos: tradição e inovação" class="w-full max-w-4xl h-auto mb-10 rounded-xl shadow-sm">
+                
+                <!-- Datas e Formato -->
+                <div class="flex flex-wrap justify-center gap-5 text-slate-700">
+                    <div class="flex items-center gap-3 bg-white border border-slate-200 shadow-md shadow-slate-200/50 px-6 py-3.5 rounded-2xl text-sm font-bold hover:border-fci-red hover:shadow-lg transition-all hover:-translate-y-1 cursor-default">
+                        <div class="bg-red-50 p-2 rounded-lg">
+                            <i class="fa-regular fa-calendar text-fci-red text-lg"></i>
+                        </div>
+                        20, 21, 22, 23 e 24 de outubro de 2026
                     </div>
-                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-sm">
-                        <i class="fa-solid fa-location-dot text-fci-red"></i> presencial e online
+                    
+                    <div class="flex items-center gap-3 bg-white border border-slate-200 shadow-md shadow-slate-200/50 px-6 py-3.5 rounded-2xl text-sm font-bold hover:border-fci-red hover:shadow-lg transition-all hover:-translate-y-1 cursor-default">
+                        <div class="bg-red-50 p-2 rounded-lg">
+                            <i class="fa-solid fa-location-dot text-fci-red text-lg"></i>
+                        </div>
+                        <span class="tracking-wide uppercase">Presencial e Online</span>
                     </div>
                 </div>
             </div>
         </header>
 
+        <!-- STREAMING_CHUNK:Estruturando os eixos temáticos e chamada de submissões... -->
         <!-- Eixos Temáticos -->
         <section id="submissoes" class="py-24 px-4 max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -137,6 +149,7 @@
             </div>
         </section>
 
+        <!-- STREAMING_CHUNK:Atualizando a seção de programação com as novas datas... -->
         <!-- Programação Atualizada -->
         <section id="programacao" class="py-24 bg-slate-100 px-4">
             <div class="max-w-7xl mx-auto text-center">
@@ -214,7 +227,7 @@
                     <!-- Dia 3: 22/10 (Quinta) -->
                     <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-slate-800 flex flex-col h-full">
                         <span class="text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">22/10 (quinta)</h3>
+                        <h3 class="text-xl font-bold mb-6">22/10 - quinta</h3>
                         <div class="space-y-4">
                             <div class="pl-4 border-l-2 border-slate-100 relative">
                                 <div class="timeline-dot bg-slate-800"></div>
@@ -235,7 +248,7 @@
                     <!-- Dia 4: 23/10 (Sexta) -->
                     <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-emerald-600 flex flex-col h-full">
                         <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">23/10 (sexta)</h3>
+                        <h3 class="text-xl font-bold mb-6">23/10 - sexta</h3>
                         <div class="space-y-4">
                             <div class="pl-4 border-l-2 border-slate-100 relative">
                                 <div class="timeline-dot bg-emerald-600"></div>
@@ -253,10 +266,11 @@
                         </div>
                     </div>
 
+                    <!-- STREAMING_CHUNK:Encerrando o loop de programação com o dia 24... -->
                     <!-- Dia 5: 24/10 (Sábado) -->
                     <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-amber-500 flex flex-col h-full">
                         <span class="text-[10px] font-black uppercase text-amber-600 bg-amber-50 px-3 py-1 rounded-full w-fit mb-4">Online - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">24/10 (sábado)</h3>
+                        <h3 class="text-xl font-bold mb-6">24/10 - sábado</h3>
                         <div class="space-y-4">
                             <div class="pl-4 border-l-2 border-slate-100 relative">
                                 <div class="timeline-dot bg-amber-500"></div>
@@ -270,6 +284,7 @@
             </div>
         </section>
 
+        <!-- STREAMING_CHUNK:Estruturando Galeria limpa (sem fotos) e Comissão Organizadora... -->
         <!-- Galeria de Fotos -->
         <section id="galeria" class="py-24 bg-white px-4">
             <div class="max-w-7xl mx-auto">
@@ -347,6 +362,7 @@
         </section>
     </div>
 
+    <!-- STREAMING_CHUNK:Finalizando com a aba 2027 e rodapé... -->
     <!-- CONTEÚDO DA EDIÇÃO 2027 -->
     <div id="edition-2027" class="tab-content py-48 text-center px-4">
         <i class="fa-solid fa-hourglass-start text-6xl text-slate-200 mb-6"></i>
@@ -381,34 +397,4 @@
     </script>
 </body>
 </html>
-<!-- CONTEÚDO DA EDIÇÃO 2026 -->
-    <div id="edition-2026" class="tab-content active">
-        <!-- Hero -->
-        <header class="bg-white py-16 px-4 relative overflow-hidden text-center border-b border-slate-100">
-            <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-                <!-- Banner Image -->
-                <img src="banner-jornada.jpeg" alt="XIII Semana de Estudos da Faculdade Cultura Inglesa - Estudos linguísticos: tradição e inovação" class="w-full max-w-4xl h-auto mb-10 rounded-xl shadow-sm">
-                
-                <!-- Datas e Formato -->
-                <div class="flex flex-wrap justify-center gap-5 text-slate-700">
-                    <div class="flex items-center gap-3 bg-white border border-slate-200 shadow-md shadow-slate-200/50 px-6 py-3.5 rounded-2xl text-sm font-bold hover:border-fci-red hover:shadow-lg transition-all hover:-translate-y-1 cursor-default">
-                        <div class="bg-red-50 p-2 rounded-lg">
-                            <i class="fa-regular fa-calendar text-fci-red text-lg"></i>
-                        </div>
-                        20, 21, 22, 23 e 24 de outubro de 2026
-                    </div>
-                    
-                    <div class="flex items-center gap-3 bg-white border border-slate-200 shadow-md shadow-slate-200/50 px-6 py-3.5 rounded-2xl text-sm font-bold hover:border-fci-red hover:shadow-lg transition-all hover:-translate-y-1 cursor-default">
-                        <div class="bg-red-50 p-2 rounded-lg">
-                            <i class="fa-solid fa-location-dot text-fci-red text-lg"></i>
-                        </div>
-                        <span class="tracking-wide uppercase">Presencial e Online</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Eixos Temáticos -->
-        <section id="submissoes" class="py-24 px-4 max-w-7xl mx-auto">
-<!-- ... existing code ... -->
 ```eof
