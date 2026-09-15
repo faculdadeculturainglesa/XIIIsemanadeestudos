@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XIII Semana de Estudos da Faculdade Cultura Inglesa - FCI</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'fci-red': '#dc2626',
+                        'fci-navy': '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { scroll-behavior: smooth; }
+        
+        /* Estilo para as abas de edição */
+        .edition-btn.active { background-color: white; color: #dc2626; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Personalização de timeline */
+        .timeline-dot { position: absolute; left: -5px; top: 5px; width: 10px; height: 10px; border-radius: 50%; }
+        
+        /* Smooth transition para links */
+        a { transition: all 0.3s ease; }
+
+        /* Links das sessões de comunicações orais */
+        .eixo-link {
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-align: left;
+            padding: 2px 0;
+            text-decoration: none;
+        }
+        .eixo-link:hover {
+            color: #dc2626;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+    
+    <!-- Navegação -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-20 items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-fci-red text-white p-2 rounded-lg font-bold text-xl shadow-lg">FCI</div>
+                <div class="hidden sm:block">
+                    <span class="font-bold text-slate-800 block leading-tight tracking-tighter text-sm">Semana de Estudos</span>
+                    <span id="nav-edition-label" class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Edição 2026</span>
+                </div>
+            </div>
+            <!-- Seletor de Edição -->
+            <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
+                <button onclick="switchEdition('2026')" id="btn-2026" class="edition-btn active px-4 py-1.5 rounded-lg text-xs font-bold transition-all">2026</button>
+                <button onclick="switchEdition('2027')" id="btn-2027" class="edition-btn px-4 py-1.5 rounded-lg text-xs font-bold transition-all">2027</button>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                <a href="#programacao" class="hover:text-fci-red transition">Programação</a>
+                <a href="#submissoes" class="hover:text-fci-red transition">Submissões</a>
+                <a href="#comissao" class="hover:text-fci-red transition">Comissão</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSferoaONn60xAH2aMKEnrgzauwm7Fx71kI0RW21eQUzfKJEWA/viewform?usp=sharing" target="_blank" class="bg-fci-red text-white px-6 py-2.5 rounded-full hover:bg-red-700 transition shadow-lg shadow-red-100">Inscrição</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO DA EDIÇÃO 2026 -->
+    <div id="edition-2026" class="tab-content active">
+        <!-- Hero -->
+        <header class="bg-fci-navy py-28 px-4 relative overflow-hidden text-center text-white">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">XIII Semana de Estudos da Faculdade Cultura Inglesa</h1>
+                <p class="text-xl md:text-2xl text-red-400 font-medium mb-10 italic font-serif">"Estudos Linguísticos: tradição e inovação em Ensino e Tradução"</p>
+                <div class="flex flex-wrap justify-center gap-4 text-white/80">
+                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-sm">
+                        <i class="fa-regular fa-calendar text-fci-red"></i> 20, 21, 22, 23 e 24 de outubro de 2026
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-sm">
+                        <i class="fa-solid fa-location-dot text-fci-red"></i> presencial e online
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Eixos Temáticos -->
+        <section id="submissoes" class="py-24 px-4 max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl font-black text-slate-900 mb-8 border-l-8 border-fci-red pl-6 tracking-tighter">Eixos temáticos</h2>
+                    <div class="grid gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
+                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">1</span>
+                            <span class="font-semibold text-sm">Estudos linguísticos, inovação e tecnologia</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
+                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">2</span>
+                            <span class="font-semibold text-sm">Ensino de línguas</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
+                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">3</span>
+                            <span class="font-semibold text-sm">Estudos literários</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
+                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">4</span>
+                            <span class="font-semibold text-sm">Tradução</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-900 rounded-[3rem] p-12 text-white shadow-2xl">
+                    <h3 class="text-3xl font-black mb-6 italic tracking-tight">Call for Papers</h3>
+                    <p class="text-slate-400 mb-8 font-light">Submissão de resumos para pôsteres e comunicações orais aberta a estudantes e pesquisadores. Veja o <a href="https://drive.google.com/file/d/1Lfz7xkBK3zQH83CayBlT7ivua3Kjxjwb/view?usp=sharing" target="_blank" class="text-red-400 underline hover:text-white transition-colors font-semibold">edital</a>.</p>
+                    <div class="bg-white/5 p-4 rounded-xl mb-8 border border-white/10 text-center">
+                        <p class="text-xs uppercase font-bold text-red-500 tracking-widest mb-1">Data limite</p>
+                        <p class="text-2xl font-bold italic text-white">Inserir data</p>
+                    </div>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSferoaONn60xAH2aMKEnrgzauwm7Fx71kI0RW21eQUzfKJEWA/viewform?usp=sharing" target="_blank" class="block w-full bg-white text-slate-900 py-4 rounded-2xl font-bold text-center hover:bg-slate-100 transition shadow-xl uppercase tracking-widest text-xs">formulário de inscrição</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programação Atualizada -->
+        <section id="programacao" class="py-24 bg-slate-100 px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-16 italic font-serif tracking-tight">Programação</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    
+                    <!-- Dia 1: 20/10 (Terça) -->
+                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-fci-red flex flex-col h-full">
+                        <span class="text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
+                        <h3 class="text-xl font-bold mb-6">20/10 - terça</h3>
+                        <div class="space-y-4">
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-fci-red"></div>
+                                <p class="text-xs font-bold text-slate-400">08:00</p>
+                                <p class="text-sm font-bold">Boas-vindas</p>
+                                <p class="text-[10px] text-slate-500">Auditório</p>
+                            </div>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-fci-red"></div>
+                                <p class="text-xs font-bold text-slate-400">08:15</p>
+                                <p class="text-sm font-bold text-fci-red">Credenciamento</p>
+                                <p class="text-[10px] text-slate-500 italic">Hall da cantina</p>
+                            </div>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-fci-red"></div>
+                                <p class="text-xs font-bold text-slate-400">08:30</p>
+                                <p class="text-sm font-bold">Apresentação de pôsteres</p>
+                                <p class="text-[10px] text-slate-500 italic">Hall da cantina</p>
+                            </div>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-fci-red"></div>
+                                <p class="text-xs font-bold text-slate-400">09:00</p>
+                                <p class="text-sm font-bold">Abertura: Estudos Linguísticos: tradição e inovação em Ensino e Tradução.</p>
+                                <p class="text-[10px] text-slate-500">Profa. Dra. Cassia Venezuela</p>
+                                <p class="text-[10px] text-slate-500">FCI</p>
+                                <p class="text-[10px] text-slate-500 italic">Auditório</p>
+                            </div>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-fci-red"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da manhã</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
+                            <span class="text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-fci-red"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da noite</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dia 2: 21/10 (Quarta) -->
+                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-blue-600 flex flex-col h-full">
+                        <span class="text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
+                        <h3 class="text-xl font-bold mb-6">21/10 - quarta</h3>
+                        <div class="space-y-4">
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-blue-600"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da manhã</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
+                            <span class="text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-blue-600"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da noite</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dia 3: 22/10 (Quinta) -->
+                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-slate-800 flex flex-col h-full">
+                        <span class="text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
+                        <h3 class="text-xl font-bold mb-6">22/10 (quinta)</h3>
+                        <div class="space-y-4">
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-slate-800"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da manhã</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
+                            <span class="text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-slate-800"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da noite</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dia 4: 23/10 (Sexta) -->
+                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-emerald-600 flex flex-col h-full">
+                        <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
+                        <h3 class="text-xl font-bold mb-6">23/10 (sexta)</h3>
+                        <div class="space-y-4">
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-emerald-600"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da manhã</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
+                            <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-emerald-600"></div>
+                                <p class="text-xs font-bold text-slate-400">A definir</p>
+                                <p class="text-sm font-bold">Atividades da noite</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dia 5: 24/10 (Sábado) -->
+                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-amber-500 flex flex-col h-full">
+                        <span class="text-[10px] font-black uppercase text-amber-600 bg-amber-50 px-3 py-1 rounded-full w-fit mb-4">Online - manhã</span>
+                        <h3 class="text-xl font-bold mb-6">24/10 (sábado)</h3>
+                        <div class="space-y-4">
+                            <div class="pl-4 border-l-2 border-slate-100 relative">
+                                <div class="timeline-dot bg-amber-500"></div>
+                                <p class="text-xs font-bold text-slate-400">12:00</p>
+                                <p class="text-sm font-bold text-fci-red uppercase tracking-widest italic">Encerramento</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria de Fotos -->
+        <section id="galeria" class="py-24 bg-white px-4">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-4 italic font-serif tracking-tight text-center">Galeria de fotos</h2>
+                <p class="text-center text-slate-400 mb-12 font-light">XIII Semana de Estudos da Faculdade Cultura Inglesa</p>
+                <div class="text-center bg-slate-50 border border-slate-100 rounded-3xl p-12 max-w-2xl mx-auto">
+                    <i class="fa-regular fa-images text-4xl text-slate-300 mb-4"></i>
+                    <p class="text-slate-500 font-medium">As fotos da edição serão disponibilizadas aqui após o evento.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comissão Organizadora e Monitoria Alinhada -->
+        <section id="comissao" class="py-24 bg-white border-t border-slate-100">
+            <div class="max-w-xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-12 italic font-serif">Comissão organizadora</h2>
+                
+                <div class="flex flex-col gap-4">
+                    <a href="https://buscatextual.cnpq.br/buscatextual/visualizacv.do" target="_blank" rel="noopener noreferrer" class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all hover:text-fci-red hover:border-fci-red/20 block">
+                        Profª Simone Resende
+                    </a>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Amanda Dourado - Licenciatura EAD
+                    </div>
+                    
+                    <a href="https://www.linkedin.com/in/iacarolpessoa/" target="_blank" rel="noopener noreferrer" class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all hover:text-fci-red hover:border-fci-red/20 block">
+                        Ana Carolina Pessoa - Licenciatura EAD
+                    </a>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Isabela Maia Pinheiro - Licenciatura EAD
+                    </div>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Jana Macedo - Licenciatura EAD
+                    </div>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Luciana Mazzei - Licenciatura EAD
+                    </div>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Luisa Rechtman - Tradução (Bacharelado/Licenciatura)
+                    </div>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Luiza Villarinho de Oliveira - Tradução (Bacharelado/Licenciatura)
+                    </div>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Regina Borovac - Tradução (Bacharelado/Licenciatura)
+                    </div>
+                    
+                    <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-bold hover:shadow-md transition-all">
+                        Simone Cristina S. Santos - Tecnólogo de Tradução
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-slate-100">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.3em] mb-3">Coordenação Geral</p>
+                    <a href="https://buscatextual.cnpq.br/buscatextual/visualizacv.do;jsessionid=1C281E33511151ECC1938F6901E8FAE2.buscatextual_0" target="_blank" rel="noopener noreferrer" class="text-xl font-black text-slate-800 hover:text-fci-red transition-colors block mb-6">
+                        Prof.ª Cassia Venezuela
+                    </a>
+                    <div class="bg-red-50 py-3 px-6 rounded-xl inline-flex items-center gap-3">
+                        <i class="fa-solid fa-user-graduate text-fci-red text-xs"></i>
+                        <p class="text-sm font-bold text-slate-700">Monitoria</p>
+                    </div>
+                        
+                    <ul class="space-y-1 text-sm text-slate-800 mt-4">
+                        <li>Inserir nomes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTEÚDO DA EDIÇÃO 2027 -->
+    <div id="edition-2027" class="tab-content py-48 text-center px-4">
+        <i class="fa-solid fa-hourglass-start text-6xl text-slate-200 mb-6"></i>
+        <h2 class="text-5xl font-black text-slate-300 italic uppercase tracking-tighter">XIV Semana (2027)</h2>
+        <p class="text-slate-400 mt-4 font-light italic">Planejamento em curso para a próxima edição da Semana de Estudos da Faculdade Cultura Inglesa.</p>
+        <button onclick="switchEdition('2026')" class="mt-10 text-fci-red font-bold hover:underline">Voltar para a XIII Semana (2026)</button>
+    </div>
+
+    <!-- Footer -->
+    <footer id="inscricao" class="bg-fci-navy text-white py-24 px-4 text-center">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-4xl font-black mb-6 italic">Prepare-se para o futuro das letras.</h2>
+            <p class="text-slate-400 mb-10 font-light">As inscrições garantem acesso a todas as palestras e certificado de participação.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSferoaONn60xAH2aMKEnrgzauwm7Fx71kI0RW21eQUzfKJEWA/viewform?usp=sharing" target="_blank" class="bg-fci-red text-white px-12 py-5 rounded-full font-black text-xl hover:bg-red-700 transition shadow-2xl inline-block shadow-red-900/20 transform hover:-translate-y-1">Fazer minha inscrição</a>
+            <div class="mt-20 pt-10 border-t border-white/5">
+                <p class="text-[10px] opacity-40 uppercase tracking-[0.5em] font-bold">© 2026 Faculdade Cultura Inglesa </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lógica JavaScript -->
+    <script>
+        // Lógica de Troca de Edição
+        function switchEdition(edition) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.edition-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('edition-' + edition).classList.add('active');
+            document.getElementById('btn-' + edition).classList.add('active');
+            document.getElementById('nav-edition-label').innerText = 'Edição ' + edition;
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
