@@ -1,4 +1,3 @@
-<!-- STREAMING_CHUNK:Configurando cabeçalho e bibliotecas Tailwind... -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -59,7 +58,6 @@
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
     
-    <!-- STREAMING_CHUNK:Renderizando a navegação (navbar)... -->
     <!-- Navegação -->
    <nav class="bg-fci-navy/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-20 items-center">
@@ -79,19 +77,18 @@
                 <a href="#programacao" class="hover:text-white transition">Programação</a>
                 <a href="#submissoes" class="hover:text-white transition">Submissões</a>
                 <a href="#comissao" class="hover:text-white transition">Comissão</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSferoaONn60xAH2aMKEnrgzauwm7Fx71kI0RW21eQUzfKJEWA/viewform?usp=sharing" target="_blank" class="bg-fci-red text-white px-6 py-2.5 rounded-full hover:bg-red-700 transition shadow-lg shadow-red-900/50">Inscrição</a>
+                <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" class="bg-fci-red text-white px-6 py-2.5 rounded-full hover:bg-red-700 transition shadow-lg shadow-red-900/50">Inscrição</a>
             </div>
         </div>
     </nav>
 
-    <!-- STREAMING_CHUNK:Construindo o novo Hero Section com Banner em Imagem... -->
     <!-- CONTEÚDO DA EDIÇÃO 2026 -->
     <div id="edition-2026" class="tab-content active">
         <!-- Hero -->
         <header class="bg-white py-16 px-4 relative overflow-hidden text-center border-b border-slate-100">
             <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
                 <!-- Banner Image - Arquivo Hospedado no GitHub -->
-                <img src="banner-jornada.jpeg" alt="XIII Semana de Estudos da Faculdade Cultura Inglesa - Estudos linguísticos: tradição e inovação" class="w-full max-w-4xl h-auto mb-10 rounded-xl shadow-sm">
+                <img src="banner-jornada.jpeg" onerror="this.src='https://placehold.co/1200x400/f8fafc/dc2626?text=Banner+da+Jornada'" alt="XIII Semana de Estudos da Faculdade Cultura Inglesa - Estudos linguísticos: tradição e inovação" class="w-full max-w-4xl h-auto mb-10 rounded-xl shadow-sm">
                 
                 <!-- Datas e Formato -->
                 <div class="flex flex-wrap justify-center gap-5 text-slate-700">
@@ -112,32 +109,10 @@
             </div>
         </header>
 
-        <!-- STREAMING_CHUNK:Estruturando os eixos temáticos e chamada de submissões... -->
         <!-- Eixos Temáticos -->
         <section id="submissoes" class="py-24 px-4 max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-4xl font-black text-slate-900 mb-8 border-l-8 border-fci-red pl-6 tracking-tighter">Eixos temáticos</h2>
-                    <div class="grid gap-4">
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
-                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">1</span>
-                            <span class="font-semibold text-sm">Estudos linguísticos, inovação e tecnologia</span>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
-                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">2</span>
-                            <span class="font-semibold text-sm">Ensino de línguas</span>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
-                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">3</span>
-                            <span class="font-semibold text-sm">Estudos literários</span>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4 hover:border-fci-red transition-colors">
-                            <span class="font-bold text-fci-red bg-red-50 w-8 h-8 rounded flex items-center justify-center">4</span>
-                            <span class="font-semibold text-sm">Tradução</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-slate-900 rounded-[3rem] p-12 text-white shadow-2xl">
+            <div class="flex justify-center items-center">
+                <div class="bg-slate-900 rounded-[3rem] p-12 text-white shadow-2xl max-w-2xl w-full">
                     <h3 class="text-3xl font-black mb-6 italic tracking-tight">Call for Papers</h3>
                     <p class="text-slate-400 mb-8 font-light">Submissão de resumos para pôsteres e comunicações orais aberta a estudantes e pesquisadores. Veja o <a href="https://drive.google.com/file/d/1Lfz7xkBK3zQH83CayBlT7ivua3Kjxjwb/view?usp=sharing" target="_blank" class="text-red-400 underline hover:text-white transition-colors font-semibold">edital</a>.</p>
                     <div class="bg-white/5 p-4 rounded-xl mb-8 border border-white/10 text-center">
@@ -149,7 +124,6 @@
             </div>
         </section>
 
-        <!-- STREAMING_CHUNK:Atualizando a seção de programação com as novas datas... -->
         <!-- Programação Atualizada -->
         <section id="programacao" class="py-24 bg-slate-100 px-4">
             <div class="max-w-7xl mx-auto text-center">
@@ -266,7 +240,6 @@
                         </div>
                     </div>
 
-                    <!-- STREAMING_CHUNK:Encerrando o loop de programação com o dia 24... -->
                     <!-- Dia 5: 24/10 (Sábado) -->
                     <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-amber-500 flex flex-col h-full">
                         <span class="text-[10px] font-black uppercase text-amber-600 bg-amber-50 px-3 py-1 rounded-full w-fit mb-4">Online - manhã</span>
@@ -284,7 +257,6 @@
             </div>
         </section>
 
-        <!-- STREAMING_CHUNK:Estruturando Galeria limpa (sem fotos) e Comissão Organizadora... -->
         <!-- Galeria de Fotos -->
         <section id="galeria" class="py-24 bg-white px-4">
             <div class="max-w-7xl mx-auto">
@@ -362,7 +334,6 @@
         </section>
     </div>
 
-    <!-- STREAMING_CHUNK:Finalizando com a aba 2027 e rodapé... -->
     <!-- CONTEÚDO DA EDIÇÃO 2027 -->
     <div id="edition-2027" class="tab-content py-48 text-center px-4">
         <i class="fa-solid fa-hourglass-start text-6xl text-slate-200 mb-6"></i>
@@ -376,7 +347,7 @@
         <div class="max-w-2xl mx-auto">
             <h2 class="text-4xl font-black mb-6 italic">Prepare-se para o futuro das letras.</h2>
             <p class="text-slate-400 mb-10 font-light">As inscrições garantem acesso a todas as palestras e certificado de participação.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSferoaONn60xAH2aMKEnrgzauwm7Fx71kI0RW21eQUzfKJEWA/viewform?usp=sharing" target="_blank" class="bg-fci-red text-white px-12 py-5 rounded-full font-black text-xl hover:bg-red-700 transition shadow-2xl inline-block shadow-red-900/20 transform hover:-translate-y-1">Fazer minha inscrição</a>
+            <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" class="bg-fci-red text-white px-12 py-5 rounded-full font-black text-xl hover:bg-red-700 transition shadow-2xl inline-block shadow-red-900/20 transform hover:-translate-y-1">Fazer minha inscrição</a>
             <div class="mt-20 pt-10 border-t border-white/5">
                 <p class="text-[10px] opacity-40 uppercase tracking-[0.5em] font-bold">© 2026 Faculdade Cultura Inglesa </p>
             </div>
@@ -397,4 +368,3 @@
     </script>
 </body>
 </html>
-```eof
