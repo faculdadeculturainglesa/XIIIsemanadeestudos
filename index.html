@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XIII Semana de Estudos da Faculdade Cultura Inglesa - FCI</title>
     
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -34,18 +37,61 @@
         .tab-content.active { display: block; }
         
         /* Personalização de timeline */
-        .timeline-dot { position: absolute; left: -5px; top: 5px; width: 10px; height: 10px; border-radius: 50%; }
+        .timeline-item {
+            position: relative;
+            padding-left: 1.75rem;
+            border-left: 2px solid #e2e8f0;
+            padding-bottom: 1.25rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.42rem;
+            top: 0.25rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 9999px;
+            background-color: #dc2626;
+            box-shadow: 0 0 0 3px #ffffff;
+        }
+        .timeline-dot.blue { background-color: #2563eb; }
+        .timeline-dot.slate { background-color: #64748b; }
+        .timeline-dot.emerald { background-color: #059669; }
+        .timeline-dot.amber { background-color: #d97706; }
         
         /* Smooth transition para links */
-        a { transition: all 0.3s ease; }
+        a { transition: all 0.2s ease-in-out; }
 
-        /* Links das sessões de comunicações orais */
+        /* Estilo para links das sessões e reuniões */
+        .meet-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #dc2626;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.35rem;
+            text-decoration: none;
+            background-color: #fef2f2;
+            padding: 0.25rem 0.65rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fee2e2;
+        }
+        .meet-link:hover {
+            background-color: #dc2626;
+            color: #ffffff;
+            border-color: #dc2626;
+        }
+
         .eixo-link {
             display: inline-block;
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 0.75rem;
-            color: #94a3b8;
+            font-size: 0.8rem;
+            color: #64748b;
             text-align: left;
             padding: 2px 0;
             text-decoration: none;
@@ -56,10 +102,10 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
     
     <!-- Navegação -->
-   <nav class="bg-fci-navy/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-white/10">
+    <nav class="bg-fci-navy/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-20 items-center">
             <div class="flex items-center gap-3">
                 <div class="bg-fci-red text-white p-2 rounded-lg font-bold text-xl shadow-lg">FCI</div>
@@ -77,7 +123,7 @@
                 <a href="#programacao" class="hover:text-white transition">Programação</a>
                 <a href="#submissoes" class="hover:text-white transition">Submissões</a>
                 <a href="#comissao" class="hover:text-white transition">Comissão</a>
-                <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" class="bg-fci-red text-white px-6 py-2.5 rounded-full hover:bg-red-700 transition shadow-lg shadow-red-900/50">Inscrição</a>
+                <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" rel="noopener noreferrer" class="bg-fci-red text-white px-6 py-2.5 rounded-full hover:bg-red-700 transition shadow-lg shadow-red-900/50">Inscrição</a>
             </div>
         </div>
     </nav>
@@ -87,7 +133,7 @@
         <!-- Hero -->
         <header class="bg-white py-16 px-4 relative overflow-hidden text-center border-b border-slate-100">
             <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-                <!-- Banner Image - Arquivo Hospedado no GitHub -->
+                <!-- Banner Image -->
                 <img src="banner-jornada.jpeg" onerror="this.src='https://placehold.co/1200x400/f8fafc/dc2626?text=Banner+da+Jornada'" alt="XIII Semana de Estudos da Faculdade Cultura Inglesa - Estudos linguísticos: tradição e inovação" class="w-full max-w-4xl h-auto mb-10 rounded-xl shadow-sm">
                 
                 <!-- Datas e Formato -->
@@ -114,141 +160,349 @@
             <div class="flex justify-center items-center">
                 <div class="bg-slate-900 rounded-[3rem] p-12 text-white shadow-2xl max-w-2xl w-full">
                     <h3 class="text-3xl font-black mb-6 italic tracking-tight">Call for Papers</h3>
-                    <p class="text-slate-400 mb-8 font-light">Submissão de resumos para pôsteres e comunicações orais aberta a estudantes e pesquisadores. Veja o <a href="https://drive.google.com/file/d/1Lfz7xkBK3zQH83CayBlT7ivua3Kjxjwb/view?usp=sharing" target="_blank" class="text-red-400 underline hover:text-white transition-colors font-semibold">edital</a>.</p>
+                    <p class="text-slate-400 mb-8 font-light">Submissão de resumos para pôsteres e comunicações orais aberta a estudantes e pesquisadores. Veja o <a href="https://drive.google.com/file/d/1Lfz7xkBK3zQH83CayBlT7ivua3Kjxjwb/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-red-400 underline hover:text-white transition-colors font-semibold">edital</a>.</p>
                     <div class="bg-white/5 p-4 rounded-xl mb-8 border border-white/10 text-center">
                         <p class="text-xs uppercase font-bold text-red-500 tracking-widest mb-1">Data limite</p>
                         <p class="text-2xl font-bold italic text-white">Inserir data</p>
                     </div>
-                    <a href="https://forms.gle/ZQ6uketNsAUR9QRf6" target="_blank" class="block w-full bg-white text-slate-900 py-4 rounded-2xl font-bold text-center hover:bg-slate-100 transition shadow-xl uppercase tracking-widest text-xs">formulário de inscrição</a>
+                    <a href="https://forms.gle/ZQ6uketNsAUR9QRf6" target="_blank" rel="noopener noreferrer" class="block w-full bg-white text-slate-900 py-4 rounded-2xl font-bold text-center hover:bg-slate-100 transition shadow-xl uppercase tracking-widest text-xs">formulário de inscrição</a>
                 </div>
             </div>
         </section>
 
         <!-- Programação Atualizada -->
-        <section id="programacao" class="py-24 bg-slate-100 px-4">
-            <div class="max-w-7xl mx-auto text-center">
-                <h2 class="text-3xl font-bold mb-16 italic font-serif tracking-tight">Programação</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+        <section id="programacao" class="py-20 bg-slate-100 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-extrabold italic font-serif tracking-tight text-slate-900 mb-3">Programação</h2>
+                    <p class="text-slate-500 text-sm max-w-xl mx-auto">Confira os horários, palestrantes, oficinas e links de acesso direto para as salas online do Google Meet.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
                     
-                    <!-- Dia 1: 20/10 (Terça) -->
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-fci-red flex flex-col h-full">
-                        <span class="text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">20/10 - terça</h3>
-                        <div class="space-y-4">
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-fci-red"></div>
-                                <p class="text-xs font-bold text-slate-400">08:00</p>
-                                <p class="text-sm font-bold">Boas-vindas</p>
-                                <p class="text-[10px] text-slate-500">Auditório</p>
+                    <!-- DIA 1: 20/10 (Terça-feira) -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-fci-red flex flex-col justify-between">
+                        <div>
+                            <!-- Manhã -->
+                            <div class="mb-8">
+                                <span class="inline-block text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full mb-3 tracking-wide">Presencial – Manhã</span>
+                                <h3 class="text-xl font-black text-slate-900 mb-6">20 de outubro (terça)</h3>
+                                
+                                <div class="space-y-4">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <p class="text-xs font-bold text-slate-400">08:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Abertura / Boas-vindas</p>
+                                        <p class="text-[11px] text-slate-500 italic">Auditório</p>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <p class="text-xs font-bold text-slate-400">09:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Atividade extensionista</p>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <p class="text-xs font-bold text-slate-400">10:00 – 12:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Would I rather teach English with a robot?</p>
+                                        <p class="text-[11px] text-slate-600 font-medium">Lucia Rodrigues</p>
+                                        <p class="text-[10px] text-slate-400">Presidente do BRAZ-TESOL</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-fci-red"></div>
-                                <p class="text-xs font-bold text-slate-400">08:15</p>
-                                <p class="text-sm font-bold text-fci-red">Credenciamento</p>
-                                <p class="text-[10px] text-slate-500 italic">Hall da cantina</p>
-                            </div>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-fci-red"></div>
-                                <p class="text-xs font-bold text-slate-400">08:30</p>
-                                <p class="text-sm font-bold">Apresentação de pôsteres</p>
-                                <p class="text-[10px] text-slate-500 italic">Hall da cantina</p>
-                            </div>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-fci-red"></div>
-                                <p class="text-xs font-bold text-slate-400">09:00</p>
-                                <p class="text-sm font-bold">Abertura: Estudos Linguísticos: tradição e inovação em Ensino e Tradução.</p>
-                                <p class="text-[10px] text-slate-500">Profa. Dra. Cassia Venezuela</p>
-                                <p class="text-[10px] text-slate-500">FCI</p>
-                                <p class="text-[10px] text-slate-500 italic">Auditório</p>
-                            </div>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-fci-red"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da manhã</p>
-                            </div>
-                        </div>
-                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
-                            <span class="text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-fci-red"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da noite</p>
+
+                            <!-- Noite -->
+                            <div class="pt-6 border-t border-slate-100">
+                                <span class="inline-block text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full mb-4 tracking-wide">Online – Noite</span>
+                                
+                                <div class="space-y-5">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <p class="text-xs font-bold text-slate-400">19:00</p>
+                                        <div class="space-y-3">
+                                            <div>
+                                                <p class="text-sm font-bold text-slate-900">Summit for Teachers Workshop</p>
+                                                <p class="text-[11px] text-slate-600">Cintia Burin — No PortEnglish Cíntia</p>
+                                                <a href="https://meet.google.com/egk-ijic-avf" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                                    <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                                </a>
+                                            </div>
+                                            <div class="pt-2 border-t border-slate-100">
+                                                <p class="text-sm font-bold text-slate-900">Tradução na Prática</p>
+                                                <p class="text-[11px] text-slate-600">Mariana de Lima Medeiros — Tradutora da EMBRAPA</p>
+                                                <a href="https://meet.google.com/bov-ziup-ffz" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                                    <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <p class="text-xs font-bold text-slate-400">20:00</p>
+                                        <div class="space-y-3">
+                                            <div>
+                                                <p class="text-sm font-bold text-slate-900">Oficina Plano de Aula</p>
+                                                <p class="text-[11px] text-slate-600">Tamires Gama — Simplifica Inglês</p>
+                                                <a href="https://meet.google.com/mvj-hdtm-dyf" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                                    <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                                </a>
+                                            </div>
+                                            <div class="pt-2 border-t border-slate-100">
+                                                <p class="text-sm font-bold text-slate-900">PoP: The Power of Pausing</p>
+                                                <p class="text-[11px] text-slate-600">Vinícius Tavares</p>
+                                                <a href="https://meet.google.com/myy-xnra-caz" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                                    <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Dia 2: 21/10 (Quarta) -->
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-blue-600 flex flex-col h-full">
-                        <span class="text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">21/10 - quarta</h3>
-                        <div class="space-y-4">
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-blue-600"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da manhã</p>
+                    <!-- DIA 2: 21/10 (Quarta-feira) -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-blue-600 flex flex-col justify-between">
+                        <div>
+                            <!-- Manhã -->
+                            <div class="mb-8">
+                                <span class="inline-block text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-3 tracking-wide">Presencial – Manhã</span>
+                                <h3 class="text-xl font-black text-slate-900 mb-6">21 de outubro (quarta)</h3>
+                                
+                                <div class="space-y-4">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot blue"></div>
+                                        <p class="text-xs font-bold text-slate-400">08:00 – 10:00</p>
+                                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                            <p class="text-sm font-bold text-slate-900">Apresentação de trabalhos</p>
+                                            <p class="text-[11px] text-slate-500">Comunidade FCI (presencial)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot blue"></div>
+                                        <p class="text-xs font-bold text-slate-400">10:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Sessões Integradas</p>
+                                        <p class="text-[11px] text-slate-600 font-medium">William Cassemiro — Translators 101 (online)</p>
+                                        <p class="text-[11px] text-slate-600 font-medium mt-1">Elidayana Alexandrino — Laboratório de escuta de imagens (ação educativa)</p>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot blue"></div>
+                                        <p class="text-xs font-bold text-slate-400">11:00</p>
+                                        <div class="space-y-2">
+                                            <div>
+                                                <p class="text-sm font-bold text-slate-900">Aviation English: The English That Allows Us to Fly</p>
+                                                <p class="text-[11px] text-slate-600">Edflar Mendes</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-bold text-slate-900">Projeto Nossa Casa UFABC</p>
+                                                <p class="text-[11px] text-slate-600">Mariana Medeiros</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
-                            <span class="text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-blue-600"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da noite</p>
+
+                            <!-- Noite -->
+                            <div class="pt-6 border-t border-slate-100">
+                                <span class="inline-block text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4 tracking-wide">Online – Noite</span>
+                                
+                                <div class="space-y-5">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot blue"></div>
+                                        <p class="text-xs font-bold text-slate-400">19:00</p>
+                                        <p class="text-sm font-bold text-slate-900 leading-tight">Storytelling — Narrative-based learning: How storytelling shapes meaning, language, and learning</p>
+                                        <p class="text-[11px] text-slate-600 mt-1">Danielle — Cia de Teatro Bilíngue</p>
+                                        <a href="https://meet.google.com/hht-guub-ksm" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot blue"></div>
+                                        <p class="text-xs font-bold text-slate-400">20:00</p>
+                                        <div class="space-y-2">
+                                            <div>
+                                                <p class="text-sm font-bold text-slate-900">Mesa: Carreira e Tradução</p>
+                                                <p class="text-[11px] text-slate-600">• Carlos Eduardo — Personal branding</p>
+                                                <p class="text-[11px] text-slate-600">• Carla D'Ella — Ser professor de inglês hoje: formação, redes sociais e novos caminhos profissionais</p>
+                                                <p class="text-[11px] text-slate-600">• Bruna Contti — O mercado da tradução além da tradução</p>
+                                            </div>
+                                            <a href="https://meet.google.com/bvo-yggb-oqw" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                                <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Dia 3: 22/10 (Quinta) -->
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-slate-800 flex flex-col h-full">
-                        <span class="text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">22/10 - quinta</h3>
-                        <div class="space-y-4">
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-slate-800"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da manhã</p>
+                    <!-- DIA 3: 22/10 (Quinta-feira) -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <!-- Manhã -->
+                            <div class="mb-8">
+                                <span class="inline-block text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full mb-3 tracking-wide">Presencial – Manhã</span>
+                                <h3 class="text-xl font-black text-slate-900 mb-6">22 de outubro (quinta)</h3>
+                                
+                                <div class="space-y-4">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot slate"></div>
+                                        <p class="text-xs font-bold text-slate-400">08:00 – 10:00</p>
+                                        <p class="text-xs italic text-slate-400">Horário livre / A definir</p>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot slate"></div>
+                                        <p class="text-xs font-bold text-slate-400">10:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Teatro: A Citizens' Assembly</p>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot slate"></div>
+                                        <p class="text-xs font-bold text-slate-400">11:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Evento Musical</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
-                            <span class="text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-slate-800"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da noite</p>
+
+                            <!-- Noite -->
+                            <div class="pt-6 border-t border-slate-100">
+                                <span class="inline-block text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full mb-4 tracking-wide">Online – Noite</span>
+                                
+                                <div class="space-y-5">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot slate"></div>
+                                        <p class="text-xs font-bold text-slate-400">19:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Oficina</p>
+                                        <p class="text-[11px] text-slate-600">Jane e Stephan</p>
+                                        <a href="https://meet.google.com/emf-xwgk-khx" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot slate"></div>
+                                        <p class="text-xs font-bold text-slate-400">20:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Reestruturação de currículo em esferas públicas</p>
+                                        <p class="text-[11px] text-slate-600">Daiana Cabral</p>
+                                        <a href="https://meet.google.com/xpy-jcqp-pri" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Dia 4: 23/10 (Sexta) -->
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-emerald-600 flex flex-col h-full">
-                        <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-fit mb-4">Presencial - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">23/10 - sexta</h3>
-                        <div class="space-y-4">
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-emerald-600"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da manhã</p>
+                    <!-- DIA 4: 23/10 (Sexta-feira) -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-emerald-600 flex flex-col justify-between">
+                        <div>
+                            <!-- Manhã (Online) -->
+                            <div class="mb-8">
+                                <span class="inline-block text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full mb-3 tracking-wide">Online – Manhã</span>
+                                <h3 class="text-xl font-black text-slate-900 mb-6">23 de outubro (sexta)</h3>
+                                
+                                <div class="space-y-5">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot emerald"></div>
+                                        <p class="text-xs font-bold text-slate-400">08:00</p>
+                                        <p class="text-sm font-bold text-slate-900 leading-tight">Panorama Geral da Indústria de Tradução e Localização</p>
+                                        <p class="text-[11px] text-slate-600">Luana Lowndes — Woman in Localization</p>
+                                        <a href="https://meet.google.com/bxp-aeiy-uen?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot emerald"></div>
+                                        <p class="text-xs font-bold text-slate-400">09:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Apresentação de trabalhos (comunidade FCI)</p>
+                                        <p class="text-[11px] text-slate-500 italic">Sessão Online 1</p>
+                                        <a href="https://meet.google.com/zbz-dmig-wcv?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot emerald"></div>
+                                        <p class="text-xs font-bold text-slate-400">10:00 – 12:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Apresentação de trabalhos (comunidade FCI)</p>
+                                        <p class="text-[11px] text-slate-500 italic">Sessão Online 2</p>
+                                        <a href="https://meet.google.com/qnb-jmos-ron?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="space-y-4 mt-8 pt-8 border-t border-slate-100">
-                            <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-fit mb-4">Online - noite</span>
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-emerald-600"></div>
-                                <p class="text-xs font-bold text-slate-400">A definir</p>
-                                <p class="text-sm font-bold">Atividades da noite</p>
+
+                            <!-- Noite -->
+                            <div class="pt-6 border-t border-slate-100">
+                                <span class="inline-block text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full mb-4 tracking-wide">Online – Noite</span>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot emerald"></div>
+                                    <p class="text-xs font-bold text-slate-400">19:00 – 21:00</p>
+                                    <p class="text-sm font-bold text-slate-400 italic">Atividades em definição</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Dia 5: 24/10 (Sábado) -->
-                    <div class="bg-white rounded-3xl p-8 shadow-sm border-b-8 border-amber-500 flex flex-col h-full">
-                        <span class="text-[10px] font-black uppercase text-amber-600 bg-amber-50 px-3 py-1 rounded-full w-fit mb-4">Online - manhã</span>
-                        <h3 class="text-xl font-bold mb-6">24/10 - sábado</h3>
-                        <div class="space-y-4">
-                            <div class="pl-4 border-l-2 border-slate-100 relative">
-                                <div class="timeline-dot bg-amber-500"></div>
-                                <p class="text-xs font-bold text-slate-400">12:00</p>
-                                <p class="text-sm font-bold text-fci-red uppercase tracking-widest italic">Encerramento</p>
+                    <!-- DIA 5: 24/10 (Sábado) -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-amber-500 flex flex-col justify-between">
+                        <div>
+                            <!-- Manhã (Online) -->
+                            <div class="mb-8">
+                                <span class="inline-block text-[10px] font-black uppercase text-amber-600 bg-amber-50 px-3 py-1 rounded-full mb-3 tracking-wide">Online – Manhã</span>
+                                <h3 class="text-xl font-black text-slate-900 mb-6">24 de outubro (sábado)</h3>
+                                
+                                <div class="space-y-5">
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot amber"></div>
+                                        <p class="text-xs font-bold text-slate-400">08:00</p>
+                                        <p class="text-xs italic text-slate-400">Horário livre / A definir</p>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot amber"></div>
+                                        <p class="text-xs font-bold text-slate-400">09:00</p>
+                                        <p class="text-sm font-bold text-slate-900 leading-tight">Beyond Fluency: What Aviation English Can Teach Us About Effective Communication</p>
+                                        <p class="text-[11px] text-slate-600">Thiago Silva</p>
+                                        <a href="https://meet.google.com/dyu-pcbb-cih?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot amber"></div>
+                                        <p class="text-xs font-bold text-slate-400">10:00</p>
+                                        <p class="text-sm font-bold text-slate-900">Palestra / Painel com Intérprete</p>
+                                        <p class="text-[11px] text-slate-600">Dilma Machado (Intérprete)</p>
+                                        <a href="https://meet.google.com/xsb-gkch-wuw?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot amber"></div>
+                                        <p class="text-xs font-bold text-slate-400">11:00</p>
+                                        <p class="text-sm font-bold text-slate-900">ABRATES e a regulamentação da profissão tradutor</p>
+                                        <p class="text-[11px] text-slate-600">Jorge Davidson — Presidente da ABRATES</p>
+                                        <a href="https://meet.google.com/idn-didm-pue" target="_blank" rel="noopener noreferrer" class="meet-link">
+                                            <i class="fa-solid fa-video text-xs"></i> Acessar sala Google Meet
+                                        </a>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot amber"></div>
+                                        <p class="text-xs font-bold text-slate-400">12:00</p>
+                                        <p class="text-sm font-bold text-fci-red uppercase tracking-widest italic">Encerramento do Evento</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -347,7 +601,7 @@
         <div class="max-w-2xl mx-auto">
             <h2 class="text-4xl font-black mb-6 italic">Prepare-se para o futuro das letras.</h2>
             <p class="text-slate-400 mb-10 font-light">As inscrições garantem acesso a todas as palestras e certificado de participação.</p>
-            <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" class="bg-fci-red text-white px-12 py-5 rounded-full font-black text-xl hover:bg-red-700 transition shadow-2xl inline-block shadow-red-900/20 transform hover:-translate-y-1">Fazer minha inscrição</a>
+            <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" rel="noopener noreferrer" class="bg-fci-red text-white px-12 py-5 rounded-full font-black text-xl hover:bg-red-700 transition shadow-2xl inline-block shadow-red-900/20 transform hover:-translate-y-1">Fazer minha inscrição</a>
             <div class="mt-20 pt-10 border-t border-white/5">
                 <p class="text-[10px] opacity-40 uppercase tracking-[0.5em] font-bold">© 2026 Faculdade Cultura Inglesa </p>
             </div>
@@ -360,11 +614,19 @@
         function switchEdition(edition) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.edition-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('edition-' + edition).classList.add('active');
-            document.getElementById('btn-' + edition).classList.add('active');
-            document.getElementById('nav-edition-label').innerText = 'Edição ' + edition;
+            
+            const targetTab = document.getElementById('edition-' + edition);
+            const targetBtn = document.getElementById('btn-' + edition);
+            
+            if (targetTab) targetTab.classList.add('active');
+            if (targetBtn) targetBtn.classList.add('active');
+            
+            const label = document.getElementById('nav-edition-label');
+            if (label) label.innerText = 'Edição ' + edition;
+            
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
     </script>
 </body>
 </html>
+
