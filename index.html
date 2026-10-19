@@ -160,10 +160,25 @@ a { transition: all 0.2s ease-in-out; }
 
   <section id="submissoes" class="py-24 px-4 max-w-7xl mx-auto">
     <div class="flex justify-center items-center">
-      <div class="bg-slate-900 rounded-[2.5rem] p-8 sm:p-14 text-white shadow-2xl max-w-2xl w-full border border-slate-800 text-center">
-        <h3 class="text-3xl sm:text-4xl font-black mb-6 italic tracking-tight font-serif">Call for Papers</h3>
+      <div class="relative bg-slate-900 rounded-[2.5rem] p-8 sm:p-14 text-white shadow-2xl max-w-2xl w-full border border-slate-800 text-center overflow-hidden">
+        
+        <!-- Badge de Destaque: Encerrado -->
+        <div class="inline-flex items-center gap-2 bg-red-600/20 border border-red-500/40 text-red-300 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 shadow-inner">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+          Inscrições Encerradas
+        </div>
+
+        <h3 class="text-3xl sm:text-4xl font-black mb-4 italic tracking-tight font-serif">Call for Papers</h3>
         <p class="text-slate-300 mb-8 font-light leading-relaxed text-sm sm:text-base">Submissão de resumos para pôsteres e comunicações orais aberta a estudantes e pesquisadores.</p>
-        <a href="https://forms.gle/ZQ6uketNsAUR9QRf6" target="_blank" rel="noopener noreferrer" class="block w-full bg-white text-slate-900 py-4 rounded-2xl font-bold text-center hover:bg-slate-100 transition-all shadow-xl uppercase tracking-widest text-xs hover:-translate-y-0.5">Formulário de Inscrição de Trabalhos</a>
+
+        <!-- Botão com status de Encerrado -->
+        <div class="relative group">
+          <button type="button" disabled class="cursor-not-allowed w-full bg-slate-800 text-slate-400 py-4 px-6 rounded-2xl font-bold text-center border border-slate-700/80 shadow-inner uppercase tracking-widest text-xs flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Formulário de Inscrição de Trabalhos — Encerrado
+          </button>
+        </div>
+        <p class="text-xs text-slate-500 mt-4 italic font-sans">O prazo para o envio de resumos e trabalhos foi finalizado.</p>
       </div>
     </div>
   </section>
