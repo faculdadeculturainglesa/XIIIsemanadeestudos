@@ -655,7 +655,8 @@ a { transition: all 0.2s ease-in-out; }
 
 <script>
 // Lógica de Geração da Galeria de Fotos (Carrossel / Paginação)
-const totalPhotos = 52;
+const photoList = [2, 5, 6, 8, 12, 13, 21, 23, 25, 27, 29, 30, 31, 32, 33, 34, 35, 36, 39, 44, 47, 48, 49, 50, 51, 52];
+const totalPhotos = photoList.length;
 const photosPerPage = 9;
 let currentPage = 1;
 const totalPages = Math.ceil(totalPhotos / photosPerPage);
@@ -665,16 +666,17 @@ function renderGallery(page) {
   if (!galleryGrid) return;
 
   let galleryHTML = '';
-  const start = (page - 1) * photosPerPage + 1;
-  const end = Math.min(start + photosPerPage - 1, totalPhotos);
+  const start = (page - 1) * photosPerPage;
+  const end = Math.min(start + photosPerPage, totalPhotos);
 
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i < end; i++) {
+    const photoNum = photoList[i];
     // Uso de aspect-[4/3] e absolute inset-0 para deixar as imagens todas do mesmo tamanho perfeitamente alinhadas
     galleryHTML += `
       <div class="overflow-hidden rounded-2xl shadow-sm border border-slate-100 group bg-slate-50 relative aspect-[4/3] flex items-center justify-center">
-        <img loading="lazy" src="foto-${i}.jpg" 
-             onerror="this.src='https://placehold.co/600x400/f8fafc/94a3b8?text=Foto+${i}'" 
-             alt="Semana de Estudos - Foto ${i}" 
+        <img loading="lazy" src="foto-${photoNum}.jpg" 
+             onerror="this.src='https://placehold.co/600x400/f8fafc/94a3b8?text=Foto+${photoNum}'" 
+             alt="Semana de Estudos - Foto ${photoNum}" 
              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
       </div>
     `;
