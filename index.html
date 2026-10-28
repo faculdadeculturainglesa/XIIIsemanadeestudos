@@ -1,737 +1,475 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XIII Semana de Estudos da Faculdade Cultura Inglesa - FCI</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
-      },
-      colors: {
-        'fci-red': '#dc2626',
-        'fci-navy': '#1e293b',
-      }
-    }
-  }
-}
-</script>
-
-<style>
-/* Estilo para as abas de edição */
-.edition-btn.active {
-  background-color: white;
-  color: #dc2626;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-}
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-/* Personalização de timeline */
-.timeline-item {
-  position: relative;
-  padding-left: 1.75rem;
-  border-left: 2px solid #e2e8f0;
-  padding-bottom: 1.5rem;
-}
-.timeline-item:last-child {
-  padding-bottom: 0;
-  border-left-color: transparent;
-}
-.timeline-dot {
-  position: absolute;
-  left: -0.42rem;
-  top: 0.25rem;
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 9999px;
-  background-color: #dc2626;
-  box-shadow: 0 0 0 3px #ffffff;
-}
-.timeline-dot.blue { background-color: #2563eb; }
-.timeline-dot.slate { background-color: #64748b; }
-.timeline-dot.emerald { background-color: #059669; }
-.timeline-dot.amber { background-color: #d97706; }
-
-/* Transições suaves para links */
-a { transition: all 0.2s ease-in-out; }
-
-/* Estilo para links das sessões e reuniões */
-.meet-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: #dc2626;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-top: 0.45rem;
-  text-decoration: none;
-  background-color: #fef2f2;
-  padding: 0.35rem 0.75rem;
-  border-radius: 0.5rem;
-  border: 1px solid #fee2e2;
-  transition: all 0.2s ease;
-}
-.meet-link:hover {
-  background-color: #dc2626;
-  color: #ffffff;
-  border-color: #dc2626;
-}
-
-.eixo-link {
-  display: inline-block;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 0.8rem;
-  color: #64748b;
-  text-align: left;
-  padding: 2px 0;
-  text-decoration: none;
-}
-.eixo-link:hover {
-  color: #dc2626;
-  text-decoration: underline;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Certificados - XIII Semana de Estudos FCI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { 
+                background: white !important; 
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            @page { 
+                size: A4 landscape; 
+                margin: 0; 
+            }
+            #printable-area {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                max-width: 100% !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                border: none !important;
+                display: block !important;
+            }
+            #certificate-border {
+                width: 100vw !important;
+                height: 100vh !important;
+                box-sizing: border-box !important;
+                margin: 0 !important;
+                border-width: 8px !important;
+                border-color: #1e293b !important;
+                border-style: solid !important;
+            }
+        }
+        .cert-bg {
+            background-color: #fff;
+            background-image: radial-gradient(#dc2626 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.05;
+        }
+        .signature-container {
+            position: relative;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .signature-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #1e293b;
+            user-select: none;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-red-100 selection:text-fci-red">
+<body class="bg-slate-100 font-['Poppins'] min-h-screen py-8 px-4 flex flex-col justify-between">
 
-<nav class="bg-fci-navy/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-white/10">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-20 items-center">
-    <div class="flex items-center gap-3">
-      <div class="bg-fci-red text-white p-2.5 rounded-xl font-black text-xl shadow-lg flex items-center justify-center tracking-tighter">
-        FCI
-      </div>
-      <div class="hidden sm:block">
-        <span class="font-bold text-white block leading-tight tracking-tight text-sm">Semana de Estudos</span>
-        <span id="nav-edition-label" class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Edição 2026</span>
-      </div>
-    </div>
-
-    <!-- Seletor de Edição -->
-    <div class="flex bg-slate-800/80 p-1 rounded-xl border border-white/10 shadow-inner">
-      <button onclick="switchEdition('2026')" id="btn-2026" class="edition-btn active text-slate-300 hover:text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all">2026</button>
-      <button onclick="switchEdition('2027')" id="btn-2027" class="edition-btn text-slate-300 hover:text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all">2027</button>
-    </div>
-
-    <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-200">
-      <a href="#programacao" class="hover:text-white transition">Programação</a>
-      <a href="#submissoes" class="hover:text-white transition">Submissões</a>
-      <a href="#comissao" class="hover:text-white transition">Comissão</a>
-      <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" rel="noopener noreferrer" class="bg-fci-red text-white px-6 py-2.5 rounded-full hover:bg-red-700 transition shadow-lg shadow-red-900/50 hover:shadow-red-800/80 hover:-translate-y-0.5">Inscrição</a>
-    </div>
-  </div>
-</nav>
-
-<div id="edition-2026" class="tab-content active">
-  <header class="bg-white py-16 px-4 relative overflow-hidden text-center border-b border-slate-100">
-    <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-      <!-- Banner Image -->
-      <img src="banner-jornada.jpeg" onerror="this.src='https://placehold.co/1200x400/f8fafc/dc2626?text=XIII+Semana+de+Estudos+da+Faculdade+Cultura+Inglesa'" alt="XIII Semana de Estudos da Faculdade Cultura Inglesa - Estudos linguísticos: tradição e inovação" class="w-full max-w-4xl h-auto mb-10 rounded-2xl shadow-sm border border-slate-100 object-cover">
-
-      <!-- Datas e Formato -->
-      <div class="flex flex-wrap justify-center gap-5 text-slate-700">
-        <div class="flex items-center gap-3 bg-white border border-slate-200 shadow-md shadow-slate-200/50 px-6 py-3.5 rounded-2xl text-sm font-bold hover:border-fci-red hover:shadow-lg transition-all hover:-translate-y-1 cursor-default">
-          <div class="bg-red-50 p-2 rounded-lg text-fci-red">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          </div>
-          20, 21, 22, 23 e 24 de outubro de 2026
+    <!-- Painel de Controle Superior -->
+    <div class="no-print max-w-2xl mx-auto w-full bg-white rounded-xl shadow-lg border-t-4 border-red-600 p-6 mb-8 transition-all">
+        <div class="flex items-center justify-between mb-2">
+            <h1 class="text-xl font-bold text-slate-800">Gerador de Certificado - XIII Semana de Estudos FCI</h1>
+            <span class="text-xs font-semibold px-2.5 py-1 bg-red-100 text-red-700 rounded-full">FCI 2026</span>
         </div>
-        <div class="flex items-center gap-3 bg-white border border-slate-200 shadow-md shadow-slate-200/50 px-6 py-3.5 rounded-2xl text-sm font-bold hover:border-fci-red hover:shadow-lg transition-all hover:-translate-y-1 cursor-default">
-          <div class="bg-red-50 p-2 rounded-lg text-fci-red">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          </div>
-          <span class="tracking-wide uppercase">Presencial e Online</span>
-        </div>
-      </div>
-    </div>
-  </header>
+        <p class="text-xs md:text-sm text-slate-500 mb-4 font-semibold">
+             Selecione a modalidade, digite o nome completo e clique em <b>Gerar Certificado</b> ou <b>Imprimir / Salvar PDF</b>.
+        </p>
 
-  <section id="submissoes" class="py-24 px-4 max-w-7xl mx-auto">
-    <div class="flex justify-center items-center">
-      <div class="relative bg-slate-900 rounded-[2.5rem] p-8 sm:p-14 text-white shadow-2xl max-w-2xl w-full border border-slate-800 text-center overflow-hidden">
-        
-        <!-- Badge de Destaque: Encerrado -->
-        <div class="inline-flex items-center gap-2 bg-red-600/20 border border-red-500/40 text-red-300 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 shadow-inner">
-          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-          Inscrições Encerradas
+        <!-- Seletor de Modalidade -->
+        <div class="grid grid-cols-3 gap-2 mb-4 bg-slate-50 p-1.5 rounded-lg border border-slate-200">
+            <button 
+                type="button"
+                id="btnModParticipante" 
+                onclick="mudarModalidade('participante')"
+                class="py-2 text-xs font-semibold rounded-md transition text-white bg-red-600 shadow-sm"
+            >
+                Participante
+            </button>
+            <button 
+                type="button"
+                id="btnModPalestrante" 
+                onclick="mudarModalidade('palestrante')"
+                class="py-2 text-xs font-semibold rounded-md transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+            >
+                Palestrante
+            </button>
+            <button 
+                type="button"
+                id="btnModMonitor" 
+                onclick="mudarModalidade('monitor')"
+                class="py-2 text-xs font-semibold rounded-md transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+            >
+                Monitoria
+            </button>
         </div>
 
-        <h3 class="text-3xl sm:text-4xl font-black mb-4 italic tracking-tight font-serif">Call for Papers</h3>
-        <p class="text-slate-300 mb-8 font-light leading-relaxed text-sm sm:text-base">Submissão de resumos para pôsteres e comunicações orais aberta a estudantes e pesquisadores.</p>
-
-        <!-- Botão com status de Encerrado -->
-        <div class="relative group">
-          <button type="button" disabled class="cursor-not-allowed w-full bg-slate-800 text-slate-400 py-4 px-6 rounded-2xl font-bold text-center border border-slate-700/80 shadow-inner uppercase tracking-widest text-xs flex items-center justify-center gap-2">
-            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            Formulário de Inscrição de Trabalhos — Encerrado
-          </button>
+        <!-- Input com Autocomplete -->
+        <div class="relative mb-3">
+            <label id="labelNome" for="nomePessoa" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                Nome completo do participante
+            </label>
+            <input 
+                type="text" 
+                id="nomePessoa" 
+                placeholder="Ex: Juliana Maria de Souza" 
+                autocomplete="off"
+                oninput="filtrarNomes()"
+                class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-red-500 focus:bg-white text-slate-800 text-sm font-medium transition"
+            >
+            <div id="autocompleteList" class="hidden absolute z-30 left-0 right-0 mt-1 max-h-48 bg-white border border-slate-200 rounded-lg shadow-xl overflow-y-auto custom-scroll text-sm"></div>
         </div>
-        <p class="text-xs text-slate-500 mt-4 italic font-sans">O prazo para o envio de resumos e trabalhos foi finalizado.</p>
-      </div>
+
+        <!-- Campo adicional para Palestrante -->
+        <div id="campoTituloPalestra" class="hidden mb-3">
+            <label for="tituloTrabalho" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                Título da Palestra ou Trabalho Apresentado
+            </label>
+            <input 
+                type="text" 
+                id="tituloTrabalho" 
+                placeholder="Ex: From Corpus Evidence to Classroom Inquiry: Fair Cloze Lab" 
+                class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-red-500 focus:bg-white text-slate-800 text-sm font-medium transition"
+                oninput="gerar()"
+            >
+        </div>
+
+        <!-- Carga Horária -->
+        <div id="campoCargaHoraria" class="mb-4">
+            <label for="cargaHoraria" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                Carga Horária (Horas)
+            </label>
+            <input 
+                type="number" 
+                id="cargaHoraria" 
+                value="30" 
+                min="1" 
+                max="120"
+                class="w-32 p-2.5 bg-slate-50 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-red-500 focus:bg-white text-slate-800 text-sm font-semibold transition"
+                oninput="gerar()"
+            >
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+            <button onclick="gerar()" class="bg-slate-800 text-white px-6 py-2.5 rounded-lg hover:bg-slate-900 active:scale-95 transition text-sm font-medium">
+                Gerar Certificado
+            </button>
+            <button onclick="window.print()" class="bg-red-600 text-white px-6 py-2.5 rounded-lg hover:bg-red-700 active:scale-95 transition text-sm font-medium flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Imprimir / Salvar PDF
+            </button>
+        </div>
     </div>
-  </section>
 
-  <section id="programacao" class="py-20 bg-slate-100 px-4">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-extrabold italic font-serif tracking-tight text-slate-900 mb-3">Programação</h2>
-        <p class="text-slate-500 text-sm max-w-2xl mx-auto">Confira a grade completa e atualizada da XIII Semana de Estudos com acesso direto às salas virtuais do Google Meet.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-        <!-- Coluna 1: Terça -->
-        <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-fci-red flex flex-col justify-between">
-          <div>
-            <div class="mb-8">
-              <span class="inline-block text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full mb-3 tracking-wide">Presencial – Manhã</span>
-              <h3 class="text-xl font-black text-slate-900 mb-6">20 de outubro (terça)</h3>
-              <div class="space-y-4">
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <p class="text-xs font-bold text-slate-400">08:00</p>
-                  <p class="text-sm font-bold text-slate-900">Abertura / Boas-vindas</p>
-                  <p class="text-[11px] text-slate-500 italic">Auditório FCI</p>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <p class="text-xs font-bold text-slate-400">08:00 – 10:00</p>
-                  <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <p class="text-sm font-bold text-slate-900 mb-1">Atividade Extensionista</p>
-                    <p class="text-[11px] text-slate-600 font-medium leading-relaxed">MultiTecLin, DEALI, Cliffhanger e GET</p>
-                  </div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <p class="text-xs font-bold text-slate-400">10:00 – 12:00</p>
-                  <p class="text-sm font-bold text-slate-900 leading-snug">"Would I rather teach English with a robot?"</p>
-                  <p class="text-[11px] text-slate-700 font-medium mt-1">Lucia Rodrigues</p>
-                  <p class="text-[10px] text-slate-400">Presidente do BRAZ-TESOL</p>
-                </div>
-              </div>
-            </div>
-            <div class="pt-6 border-t border-slate-100">
-              <span class="inline-block text-[10px] font-black uppercase text-fci-red bg-red-50 px-3 py-1 rounded-full mb-4 tracking-wide">Online – Noite</span>
-              <div class="space-y-5">
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <p class="text-xs font-bold text-slate-400">19:00</p>
-                  <div class="space-y-4">
+    <!-- Área Oficial do Certificado -->
+    <div class="w-full flex justify-center items-center pb-8">
+        <div id="printable-area" class="w-full max-w-[1000px] mx-auto p-1 bg-white shadow-2xl relative transition-all">
+            <div id="certificate-border" class="border-8 border-slate-800 p-10 sm:p-12 relative min-h-[640px] flex flex-col justify-between">
+                
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 cert-bg pointer-events-none"></div>
+                
+                <div class="relative z-10 text-center flex-1 flex flex-col justify-between h-full">
+                    
+                    <!-- Topo Institucional -->
                     <div>
-                      <p class="text-sm font-bold text-slate-900">No PortEnglish, please!</p>
-                      <p class="text-[11px] text-slate-600">Cintia Burin — Summit for Teachers</p>
-                      <a href="https://meet.google.com/egk-jjjc-avf" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
+                        <!-- Logotipo com fallback automático para GitHub e CDN -->
+                        <div class="flex justify-center mb-5 min-h-[56px] items-center">
+                            <div id="containerLogo">
+                                <img 
+                                    id="logoImagem" 
+                                    src="fci-logo.jpeg" 
+                                    alt="Logo Faculdade Cultura Inglesa" 
+                                    class="max-h-20 max-w-[240px] object-contain mx-auto"
+                                    onerror="tratarErroImagem()"
+                                >
+                                <div id="logoBadgePadrao" class="hidden bg-red-600 text-white p-3 rounded-lg font-bold text-2xl shadow-sm">
+                                    FCI
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 class="text-slate-500 uppercase tracking-[0.3em] text-xs sm:text-sm font-bold mb-2">Faculdade Cultura Inglesa</h2>
+                        
+                        <!-- Título do Certificado Dinâmico -->
+                        <h1 id="displayTituloCertificado" class="font-['Playfair_Display'] text-3xl sm:text-4xl text-slate-800 mb-8 italic">
+                            Certificado de Participação
+                        </h1>
+                        
+                        <p id="displayPreambulo" class="text-base sm:text-lg text-slate-600 mb-6">
+                            Certificamos que, para os devidos fins, o(a) aluno(a)
+                        </p>
+                        
+                        <!-- Nome da Pessoa em Destaque -->
+                        <h3 id="displayNome" class="text-2xl sm:text-3xl font-bold text-red-600 mb-6 border-b-2 border-slate-100 inline-block px-6 sm:px-10 pb-2 max-w-full break-words">
+                            [Nome do Participante]
+                        </h3>
                     </div>
-                    <div class="pt-3 border-t border-slate-100">
-                      <p class="text-sm font-bold text-slate-900">Tradução na Prática</p>
-                      <p class="text-[11px] text-slate-600">Mariana Lima Medeiros — Analista da EMBRAPA</p>
-                      <a href="https://meet.google.com/bov-ziup-ffz" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
+
+                    <!-- Texto Oficial da XIII Semana de Estudos FCI -->
+                    <div class="my-auto py-2">
+                        <p id="displayTextoCorpo" class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                            participou da <b>XIII Semana de Estudos da Faculdade Cultura Inglesa</b>, contemplando palestras magnas, oficinas pedagógicas, mesas-redondas e sessões de comunicação científica, realizada entre <b>20 e 24 de outubro de 2026</b>, com carga horária total de <b><span id="displayHorasTexto">30</span> horas</b>.
+                        </p>
                     </div>
-                  </div>
+
+                    <!-- Assinatura e Data de Emissão -->
+                    <div class="mt-8">
+                        <div class="flex justify-center">
+                            <div class="text-center w-80">
+                                <div class="signature-container mb-2">
+                                    <span class="signature-text">Cassia C Venezuela</span>
+                                </div>
+                                <div class="border-t border-slate-400 pt-2 text-sm text-slate-500">
+                                    <b>Prof.ª Dra. Cassia Cristina Marques Venezuela</b><br>Coordenação Geral
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest">
+                            São Paulo, 24 de outubro de 2026
+                        </div>
+                    </div>
+
                 </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <p class="text-xs font-bold text-slate-400">20:00</p>
-                  <div class="space-y-4">
-                    <div>
-                      <p class="text-sm font-bold text-slate-900">Oficina Plano de Aula</p>
-                      <p class="text-[11px] text-slate-600">Tamires Gama — Simplifica Inglês</p>
-                      <a href="https://meet.google.com/mvj-hdtm-dyf" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100">
-                      <p class="text-sm font-bold text-slate-900">"AIDE: Artificial Intelligence for Development in Education"</p>
-                      <p class="text-[11px] text-slate-600">Vinícius da Silva Tavares — b.side solutions</p>
-                      <a href="https://meet.google.com/myv-xnra-caz" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-
-        <!-- Coluna 2: Quarta -->
-        <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-blue-600 flex flex-col justify-between">
-          <div>
-            <div class="mb-8">
-              <span class="inline-block text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-3 tracking-wide">Presencial – Manhã</span>
-              <h3 class="text-xl font-black text-slate-900 mb-6">21 de outubro (quarta)</h3>
-              <div class="space-y-5">
-                <div class="timeline-item">
-                  <div class="timeline-dot blue"></div>
-                  <p class="text-xs font-bold text-slate-400">08:00 – 09:40</p>
-                  <p class="text-xs font-black uppercase tracking-wider text-blue-700 mb-2">Apresentação de Trabalhos</p>
-                  <div class="space-y-3">
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <p class="text-xs font-black text-slate-800 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-blue-600 inline-block"></span> Sala A — Tradução e Linguagem
-                      </p>
-                      <ul class="text-[11px] text-slate-600 space-y-1.5 pl-2 border-l border-slate-200">
-                        <li><strong>Giovanna Souto Marques:</strong> Sobre escrever e narrar histórias</li>
-                        <li><strong>Ana Clara Dourado de Amorim:</strong> O socioleto literário de <em>Wuthering Heights</em></li>
-                        <li><strong>Emanuelly Alves:</strong> Cultural Translation: Visibilizing Marginalized Cultures</li>
-                        <li><strong>D. Bertolucci, S. Oliveira e G. Marques:</strong> The Power of Words on Consumers</li>
-                      </ul>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <p class="text-xs font-black text-slate-800 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-blue-600 inline-block"></span> Sala 1 — Educação e Linguagem
-                      </p>
-                      <ul class="text-[11px] text-slate-600 space-y-1.5 pl-2 border-l border-slate-200">
-                        <li><strong>Tomás Zeigler:</strong> The oldest story, our own</li>
-                        <li><strong>M. Sampaio, A. Lindstron, C. Blanes e N. Dutschmann:</strong> Systemic-Functional Linguistics</li>
-                        <li><strong>Larissa Shimidt:</strong> Competências para profissionais da educação no século XXI</li>
-                        <li><strong>Clara Blanes Debia:</strong> Mediação e Tradução: Práticas Sociolinguísticas</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot blue"></div>
-                  <p class="text-xs font-bold text-slate-400">10:00 – 11:00</p>
-                  <div class="space-y-3">
-                    <div class="bg-blue-50/60 p-3.5 rounded-xl border border-blue-100">
-                      <span class="text-[10px] uppercase font-bold tracking-wider text-blue-700 block mb-0.5">Híbrido — Transmissão Salas 8 e 9</span>
-                      <p class="text-sm font-bold text-slate-900"> "Além das palavras: fluência cultural, ética e mercado na Era da IA"</p>
-                      <p class="text-[11px] text-slate-700 font-medium mt-0.5">William Cassemiro — Plataforma Translators101</p>
-                      <a href="https://meet.google.com/enm-vpko-cgc" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                    <div>
-                      <p class="text-sm font-bold text-slate-900">Laboratório de escuta de imagens</p>
-                      <p class="text-[11px] text-slate-600 font-medium">Elidayana Alexandrino — Plataforma Projeto Afro</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot blue"></div>
-                  <p class="text-xs font-bold text-slate-400">11:00 – 12:00</p>
-                  <div class="space-y-3">
-                    <div>
-                      <p class="text-sm font-bold text-slate-900 leading-snug">"Aviation English"</p>
-                      <p class="text-[11px] text-slate-600">Edflar Mendes</p>
-                    </div>
-                    <div class="pt-2 border-t border-slate-100">
-                      <p class="text-sm font-bold text-slate-900 leading-snug">"A extensão universitária no acolhimento a migrantes"</p>
-                      <p class="text-[11px] text-slate-600">Mariana Eunice — UFABC</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="pt-6 border-t border-slate-100">
-              <span class="inline-block text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4 tracking-wide">Online – Noite</span>
-              <div class="space-y-5">
-                <div class="timeline-item">
-                  <div class="timeline-dot blue"></div>
-                  <p class="text-xs font-bold text-slate-400">19:00</p>
-                  <p class="text-sm font-bold text-slate-900 leading-tight">"Narrative-based Learning"</p>
-                  <p class="text-[11px] text-slate-600 mt-1">Danielle Andrade</p>
-                  <a href="https://meet.google.com/hht-guub-ksm" target="_blank" rel="noopener noreferrer" class="meet-link">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    Acessar sala
-                  </a>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot blue"></div>
-                  <p class="text-xs font-bold text-slate-400">20:00</p>
-                  <div class="space-y-4">
-                    <div>
-                      <p class="text-sm font-bold text-slate-900">"Beyond the Diploma: Personal Branding"</p>
-                      <p class="text-[11px] text-slate-600">Carlos Eduardo — English Mastery</p>
-                      <a href="https://meet.google.com/bvo-yggb-oqw" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100">
-                      <p class="text-sm font-bold text-slate-900">"Ser professor de inglês hoje"</p>
-                      <p class="text-[11px] text-slate-600">Carla D'Elia</p>
-                      <a href="https://meet.google.com/yto-qrmo-sro" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100">
-                      <p class="text-sm font-bold text-slate-900">"O mercado da tradução além da tradução"</p>
-                      <p class="text-[11px] text-slate-600">Bruna Contti</p>
-                      <a href="https://meet.google.com/opz-wmwm-fci" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Coluna 3: Quinta -->
-        <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="mb-8">
-              <span class="inline-block text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full mb-3 tracking-wide">Presencial – Manhã</span>
-              <h3 class="text-xl font-black text-slate-900 mb-6">22 de outubro (quinta)</h3>
-              <div class="space-y-4">
-                <div class="timeline-item">
-                  <div class="timeline-dot slate"></div>
-                  <p class="text-xs font-bold text-slate-400">08:00 – 10:00</p>
-                  <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <p class="text-sm font-bold text-slate-900">Troca de livros & Sarau</p>
-                  </div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot slate"></div>
-                  <p class="text-xs font-bold text-slate-400">10:00</p>
-                  <p class="text-sm font-bold text-slate-900">Teatro: "A Citizens' Assembly"</p>
-                  <p class="text-[11px] text-slate-700 font-medium">Cia. Arthur-Arnaldo</p>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot slate"></div>
-                  <p class="text-xs font-bold text-slate-400">11:00</p>
-                  <p class="text-sm font-bold text-slate-900">Evento Musical</p>
-                </div>
-              </div>
-            </div>
-            <div class="pt-6 border-t border-slate-100">
-              <span class="inline-block text-[10px] font-black uppercase text-slate-800 bg-slate-100 px-3 py-1 rounded-full mb-4 tracking-wide">Online – Noite</span>
-              <div class="space-y-5">
-                <div class="timeline-item">
-                  <div class="timeline-dot slate"></div>
-                  <p class="text-xs font-bold text-slate-400">19:00</p>
-                  <p class="text-sm font-bold text-slate-900 leading-snug">"Beyond Words: Intercultural Competence"</p>
-                  <p class="text-[11px] text-slate-600 mt-0.5">Stephan Hughes e Jane Godwin Coury</p>
-                  <a href="https://meet.google.com/emf-xwgk-khx" target="_blank" rel="noopener noreferrer" class="meet-link">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    Acessar sala
-                  </a>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot slate"></div>
-                  <p class="text-xs font-bold text-slate-400">20:00</p>
-                  <div class="space-y-4">
-                    <div>
-                      <p class="text-sm font-bold text-slate-900">"Reestruturação de currículo"</p>
-                      <p class="text-[11px] text-slate-600">Daiana Cabral</p>
-                      <a href="https://meet.google.com/xpy-jcqp-pri" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100">
-                      <p class="text-sm font-bold text-slate-900 leading-snug">"Os desafios do tradutor como mediador"</p>
-                      <p class="text-[11px] text-slate-600">Abigail Viana dos Santos</p>
-                      <a href="https://meet.google.com/jbw-vvyy-png" target="_blank" rel="noopener noreferrer" class="meet-link">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        Acessar sala
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Coluna 4: Sexta -->
-        <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-emerald-600 flex flex-col justify-between">
-          <div>
-            <div>
-              <span class="inline-block text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full mb-3 tracking-wide">Online – Manhã</span>
-              <h3 class="text-xl font-black text-slate-900 mb-6">23 de outubro (sexta)</h3>
-              <div class="space-y-5">
-                <div class="timeline-item">
-                  <div class="timeline-dot emerald"></div>
-                  <p class="text-xs font-bold text-slate-400">08:00 – 09:00</p>
-                  <p class="text-sm font-bold text-slate-900 leading-tight">"Panorama Geral da Indústria de Tradução e Localização"</p>
-                  <p class="text-[11px] text-slate-600">Luana Lowndes — Women in Localization</p>
-                  <a href="https://meet.google.com/bxp-aeiy-uen?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    Acessar sala Google Meet
-                  </a>
-                </div>
-
-                <div class="timeline-item">
-                  <div class="timeline-dot emerald"></div>
-                  <p class="text-xs font-bold text-slate-400">09:00 – 11:40</p>
-                  <p class="text-sm font-bold text-slate-900">Apresentação de Trabalhos</p>
-                  <p class="text-[11px] text-slate-500 mb-2">Comunidade FCI — Sala Principal</p>
-
-                  <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 mb-3">
-                    <ul class="text-[11px] text-slate-600 space-y-2">
-                      <li><strong>Cleria Simone Miguel Klein:</strong> Práticas de Diferenciação no Ensino (PBL, ZDP e DUA)</li>
-                      <li><strong>A. Brito, A. Mattos e Luisa Rechtman:</strong> Gramática de Construções: uma breve introdução</li>
-                      <li><strong>Andre Candido Ubriaco de Oliveira:</strong> From Corpus Evidence to Classroom Inquiry: Fair Cloze Lab</li>
-                      <li><strong>M. Sampaio, A. Lindstron e Nicole Dutschmann:</strong> Translation Through Comics in ELT</li>
-                    </ul>
-                  </div>
-
-                  <a href="https://meet.google.com/zbz-dmig-wcv?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    Acessar sala Google Meet
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Coluna 5: Sábado -->
-        <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border-b-8 border-amber-500 flex flex-col justify-between">
-          <div>
-            <div class="mb-8">
-              <span class="inline-block text-[10px] font-black uppercase text-amber-600 bg-amber-50 px-3 py-1 rounded-full mb-3 tracking-wide">Online – Manhã</span>
-              <h3 class="text-xl font-black text-slate-900 mb-1">24 de outubro (sábado)</h3>
-              
-              <div class="mb-6">
-                <a href="https://meet.google.com/fvg-dveh-nro?authuser=0" target="_blank" rel="noopener noreferrer" class="meet-link">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                  Acessar sala única (todas as palestras)
-                </a>
-              </div>
-
-              <div class="space-y-5">
-                <div class="timeline-item">
-                  <div class="timeline-dot amber"></div>
-                  <p class="text-xs font-bold text-slate-400">09:00 – 10:00</p>
-                  <p class="text-sm font-bold text-slate-900 leading-tight">"Beyond Fluency: What Aviation English Can Teach Us"</p>
-                  <p class="text-[11px] text-slate-600">Thiago Silva</p>
-                </div>
-
-                <div class="timeline-item">
-                  <div class="timeline-dot amber"></div>
-                  <p class="text-xs font-bold text-slate-400">10:00 – 11:00</p>
-                  <p class="text-sm font-bold text-slate-900">Palestra com Dubladora/Tradutora audiovisual</p>
-                  <p class="text-[11px] text-slate-600">Dilma Machado</p>
-                </div>
-
-                <div class="timeline-item">
-                  <div class="timeline-dot amber"></div>
-                  <p class="text-xs font-bold text-slate-400">11:00 – 12:00</p>
-                  <p class="text-sm font-bold text-slate-900">"ABRATES e a regulamentação da profissão tradutor"</p>
-                  <p class="text-[11px] text-slate-600">Jorge Davidson — Presidente da ABRATES</p>
-                </div>
-
-                <div class="timeline-item">
-                  <div class="timeline-dot amber"></div>
-                  <p class="text-xs font-bold text-slate-400">12:00</p>
-                  <p class="text-sm font-bold text-fci-red uppercase tracking-widest italic font-serif">Encerramento do Evento</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
 
-  <!-- SEÇÃO DE GALERIA ATUALIZADA -->
-  <section id="galeria" class="py-24 bg-white px-4">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-bold mb-4 italic font-serif tracking-tight text-center">Galeria de fotos</h2>
-      <p class="text-center text-slate-400 mb-12 font-light">XIII Semana de Estudos da Faculdade Cultura Inglesa</p>
-      
-      <div class="relative">
-        <!-- O Grid onde o JavaScript injetará as 9 fotos da página atual -->
-        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 transition-opacity duration-300">
-          <!-- As imagens serão carregadas aqui dinamicamente -->
-        </div>
+    <!-- Scripts com Banco de Dados e Lógica de Atualização -->
+    <script>
+        // Lista ordenada de URLs da imagem:
+        // 1. Relativo local: 'fci-logo.jpeg'
+        // 2. Link RAW do repositório no GitHub
+        // 3. CDN Fastly/jsDelivr espelhando o repositório
+        const URLs_LOGO = [
+            "fci-logo.jpeg",
+            "https://raw.githubusercontent.com/faculdadeculturainglesa/geradordecertificadosXIIIsemanadeestudos/main/fci-logo.jpeg",
+            "https://cdn.jsdelivr.net/gh/faculdadeculturainglesa/geradordecertificadosXIIIsemanadeestudos@main/fci-logo.jpeg"
+        ];
+        let indiceLogoAtual = 0;
 
-        <!-- Controles de Navegação (Setas) -->
-        <div class="flex items-center justify-center gap-6 mt-10">
-          <button id="prev-btn" onclick="prevPage()" class="p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all focus:outline-none disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-slate-100">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          
-          <span id="page-indicator" class="text-sm font-semibold text-slate-500 uppercase tracking-widest">
-            <!-- Injetado via JS -->
-          </span>
-          
-          <button id="next-btn" onclick="nextPage()" class="p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all focus:outline-none disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-slate-100">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+        // Modalidade atual: 'participante' | 'palestrante' | 'monitor'
+        let modalidadeAtual = 'participante';
 
-  <section id="comissao" class="py-24 bg-white border-t border-slate-100">
-    <div class="max-w-xl mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-12 italic font-serif">Comissão organizadora</h2>
+        // Base de dados completa da XIII Semana de Estudos
+        const baseDados = {
+            participantes: [
+                "Juliana Maria de Souza", "Giullia Della Noce Pereira Machado", "Ketlyn Pinheiro Rodrigues", "Yasmin Tanaka", "Renata de Macedo", "Rodrigo de Almeida Negruchi", "Leticia Domenequetti Storari", "Gabriel de Oliveira", "Pedro Manoel Pereira Cassani", "Eloísa Ribeiro de Oliveira", "Fernanda Christina Köchert", "Leonardo de Melo Campos", "Anna Beatriz do Rego Barros", "Ariel Fischer Alencar", "Gabriela Florindo Faria", "Simone Cristina Silva Santos", "Regina Borovac", "Amanda Figueiredo", "Beatriz Martins", "Luana Cabral de Lima", "André Cândido Ubriaco de Oliveira", "Marcela Peixoto Souza", "Karin Tanaka", "Clara Blanes Debia", "Ruthnéia Ana da Silva Santos", "Carolina Ruiz de Oliveira", "Vitória Macedo Campos", "Pedro Henrique Martins Roumee", "Amanda Gabriele Pedro Cunha", "Diandra Tomaz Fabiano", "Ana Carolina de Castro Pessoa", "Adriana Belfort Mattos", "Giseli Giardini", "Juliana dos Santos Veiga", "Silvana Koenig", "Jayanne Ferraz V. de Moura", "Christina Gomes Rodrigues", "Andrini Schmawen", "Gabriela Maciel Rodrigues Lourenço", "Paula Rodrigues de Magalhães", "Thammyres Tatiany Ramos dos Anjos", "Talita de Carvalho Moura", "Bárbara Domingues de Oliveira Pavan", "Alexandre Bispo de Sales Freitas", "Mirela Gabrielly Silviano da Silva", "Amanda Schmitz Pagliarini de Moura", "Michelle L. R. dos Reis", "Larissa Siqueira", "Cristiane Marcondes Seixas Cesaroti", "Marina Aguiar de Castro Ramos", "Gabriel Brandão de Oliveira Fonseca Zampieri", "Rodrigo Gomes de Paula", "Marlon Ferraresso Beralha", "Tatiana Borges", "Nicolas Magnani Ricci Silva", "Vinicius Eugenio Mattos", "Carolina Melchert Balsani", "Paula Papp Coelho", "Luisa Rechtman", "Nicole Yoo", "Gisele Tinmarte Calegari", "Luciana Brunetti Caleffi", "Agatha Kemylin Miranda de Lima", "Gabriel Cruz Freitas", "Isabella Maia Pinheiro", "Júlia Camille Lima de Freitas", "Fernanda Rafaela Salgado Salles", "Priscilla Rodrigues Victoriano dos Santos", "Maria Lazaregno", "Marcos Barbosa de Almeida Costa", "Ana Carolina Amaral Fenech", "Hyasmin dos Santos Alves", "Luciana Cabral de Lima", "Ana Gabriele Pagotto Correa Dias", "Sophia Trindade de Paiva Oliveira", "Rosana Bertolini", "Gustavo A. de A. Morais", "Flávia Alves de Oliveira", "Midian Rebin", "Mayara Gabaldi Sampaio", "Evelyn dos Santos Matias", "Roberto Ramos Mafe", "Denise Libardi Bertolucci", "Natasha Mattos", "Giovanna Souto Marques", "Alexandre Henrique de Freitas Pelegrino", "Tomás Zeigler", "Júlia Vinagre", "Fernanda Lopes Penna", "José Rogério Fátima Moreira de Sousa", "Aura Alessandra Falo Latino", "Henrique dos Santos", "Eduardo de Freitas Mendes", "Carmine Vitória Simão Lucas", "Luísa Baldo Vidigal", "Estela Fernandes Megan", "Kally Gomes Baldalia Spena", "Juliana de Souza Franco", "Meire Schiavon", "Moises Siqueira Neiva", "Walter Alexandre Borges Curti", "Letícia Alves", "Karoll Amanda Rodrigues da Silva"
+            ],
+            palestrantes: [
+                { nome: "André Cândido Ubriaco de Oliveira", titulo: "From Corpus Evidence to Classroom Inquiry: Fair Cloze Lab" },
+                { nome: "Rebeca Carneiro dos Anjos", titulo: "Corpus Linguistics and Inquiry-based Learning" },
+                { nome: "Cleria Simone Miguel Klein", titulo: "Práticas de Diferenciação no Ensino: Articulações entre PBL, ZDP e Design Universal para a Aprendizagem" },
+                { nome: "Luisa Rechtman", titulo: "Gramática de Construções: uma breve introdução" },
+                { nome: "Mayara Gabaldi Sampaio", titulo: "Translation Through Comics: Using Translation Activities in English Language Teaching" },
+                { nome: "Tomás Zeigler", titulo: "The Oldest Story, Our Own" },
+                { nome: "Larissa Shimidt", titulo: "Competências para Profissionais da Educação no Século XXI" },
+                { nome: "Clara Blanes Debia", titulo: "Mediação e Tradução: Práticas Sociolinguísticas no Ensino de Línguas" },
+                { nome: "Emanuelly Alves da Silva", titulo: "An Essay on the Aspects and Applications of Cultural Translation: Visibilizing Marginalized Cultures Through Translation" },
+                { nome: "Giovanna Souto Marques", titulo: "Sobre Escrever e Narrar Histórias" },
+                { nome: "Ana Clara Dourado de Amorim", titulo: "O Socioleto Literário de Wuthering Heights: Como o Momento Histórico Pode Afetar uma Tradução" },
+                { nome: "Denise Libardi Bertolucci", titulo: "The Power of Words on Consumers" },
+                { nome: "Sophia Trindade de Paiva Oliveira", titulo: "The Power of Words on Consumers" },
+                { nome: "Arthur Lindstron", titulo: "Systemic-Functional Linguistics and Its Applications to Language Teaching" },
+                { nome: "Nicole Dutschmann", titulo: "Systemic-Functional Linguistics and Its Applications to Language Teaching" },
+                { nome: "Adriana Belfort Mattos", titulo: "Gramática de Construções: uma breve introdução" },
+                { nome: "Ana Clara Couto Brito", titulo: "Gramática de Construções: uma breve introdução" },
+                { nome: "Lucia Rodrigues", titulo: "Would I Rather Teach English with a Robot?" },
+                { nome: "William Cassemiro", titulo: "Além das Palavras: Fluência Cultural, Ética e Mercado na Era da IA" },
+                { nome: "Edflar Mendes", titulo: "Aviation English: The English That Allows Us to Fly" },
+                { nome: "Mariana Eunice Alves de Almeida", titulo: "A Extensão Universitária no Acolhimento a Migrantes e Refugiados" },
+                { nome: "Cintia Burin", titulo: "No PortEnglish, please! A Influência Invisível do Português no Seu Inglês" },
+                { nome: "Danielle Andrade", titulo: "Narrative-based Learning: How Storytelling Shapes Meaning, Language and Learning" },
+                { nome: "Vinícius da Silva Tavares", titulo: "AIDE: Artificial Intelligence for Development in Education" },
+                { nome: "Carlos Eduardo Martins", titulo: "Beyond the Diploma: Personal Branding for the Modern Language Professional" },
+                { nome: "Carla D'Elia", titulo: "Ser Professor de Inglês Hoje: Formação, Redes Sociais e Novos Caminhos Profissionais" },
+                { nome: "Bruna Contti", titulo: "O Mercado da Tradução Além da Tradução" },
+                { nome: "Daiana Cabral", titulo: "Reestruturação de Currículo em Esferas Públicas" },
+                { nome: "Stephan Hughes", titulo: "Beyond Words: Intercultural Competence through Mirrors, Windows and Sliding Doors" },
+                { nome: "Jane Godwin Coury", titulo: "Beyond Words: Intercultural Competence through Mirrors, Windows and Sliding Doors" },
+                { nome: "Abigail Viana dos Santos", titulo: "Entre Palavras e Culturas: Os Desafios e as Alegrias do Tradutor como Mediador Cultural" },
+                { nome: "Luana Lowndes", titulo: "Panorama Geral da Indústria de Tradução e Localização" },
+                { nome: "Thiago Silva", titulo: "Beyond Fluency: What Aviation English Can Teach Us About Effective Communication" },
+                { nome: "Jorge Davidson", titulo: "ABRATES e a Regulamentação da Profissão Tradutor" },
+                { nome: "Dilma Machado", titulo: "A Atuação do Intérprete no Cenário Contemporâneo" },
+                { nome: "Elidayana Alexandrino", titulo: "Laboratório de Escuta de Imagens" },
+                { nome: "Tamires Gama", titulo: "Oficina Plano de Aula" }
+            ],
+            monitores: [
+                "Regina Borovac", "Isabela Maia", "Ana Clara Couto Brito", "Carol Pessoa", "Denise Libardi Bertolucci", "Clara Blanes Debia"
+            ]
+        };
 
-      <div class="flex flex-col gap-3.5">
-        <a href="https://buscatextual.cnpq.br/buscatextual/visualizacv.do" target="_blank" rel="noopener noreferrer" class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold hover:shadow-md transition-all hover:text-fci-red hover:border-fci-red/20 block text-sm">
-          Profª Simone Resende
-        </a>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Amanda Dourado - Licenciatura EAD
-        </div>
-        <a href="https://www.linkedin.com/in/iacarolpessoa/" target="_blank" rel="noopener noreferrer" class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold hover:shadow-md transition-all hover:text-fci-red hover:border-fci-red/20 block text-sm">
-          Ana Carolina Pessoa - Licenciatura EAD
-        </a>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Isabela Maia Pinheiro - Licenciatura EAD
-        </div>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Jana Macedo - Licenciatura EAD
-        </div>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Luciana Mazzei - Licenciatura EAD
-        </div>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Luisa Rechtman - Tradução (Bacharelado/Licenciatura)
-        </div>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Luiza Villarinho de Oliveira - Tradução (Bacharelado/Licenciatura)
-        </div>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Regina Borovac - Tradução (Bacharelado/Licenciatura)
-        </div>
-        <div class="p-4 border border-slate-100 rounded-2xl bg-slate-50 font-semibold text-sm">
-          Simone Cristina S. Santos - Tecnólogo de Tradução
-        </div>
-      </div>
+        const inputNome = document.getElementById('nomePessoa');
+        const inputTitulo = document.getElementById('tituloTrabalho');
+        const inputHoras = document.getElementById('cargaHoraria');
+        const campoTituloPalestra = document.getElementById('campoTituloPalestra');
+        const campoCargaHoraria = document.getElementById('campoCargaHoraria');
+        const labelNome = document.getElementById('labelNome');
+        const autocompleteList = document.getElementById('autocompleteList');
 
-      <div class="mt-16 pt-8 border-t border-slate-100">
-        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.3em] mb-3">Coordenação Geral</p>
-        <a href="https://buscatextual.cnpq.br/buscatextual/visualizacv.do;jsessionid=1C281E33511151ECC1938F6901E8FAE2.buscatextual_0" target="_blank" rel="noopener noreferrer" class="text-xl font-black text-slate-800 hover:text-fci-red transition-colors block">
-          Prof.ª Cassia Venezuela
-        </a>
-      </div>
-    </div>
-  </section>
-</div>
+        const logoBadgePadrao = document.getElementById('logoBadgePadrao');
+        const logoImagem = document.getElementById('logoImagem');
 
-<div id="edition-2027" class="tab-content py-48 text-center px-4">
-  <div class="flex justify-center mb-6">
-    <svg class="w-16 h-16 text-slate-300 animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-  </div>
-  <h2 class="text-4xl sm:text-5xl font-black text-slate-300 italic uppercase tracking-tighter">XIV Semana (2027)</h2>
-  <p class="text-slate-400 mt-4 font-light italic max-w-md mx-auto">Planejamento em curso para a próxima edição da Semana de Estudos da Faculdade Cultura Inglesa.</p>
-  <button onclick="switchEdition('2026')" class="mt-10 text-fci-red font-bold hover:underline inline-flex items-center gap-2 cursor-pointer">
-    ← Voltar para a XIII Semana (2026)
-  </button>
-</div>
+        function configurarLogoFixo() {
+            indiceLogoAtual = 0;
+            logoImagem.src = URLs_LOGO[0];
+            logoImagem.classList.remove('hidden');
+            logoBadgePadrao.classList.add('hidden');
+        }
 
-<footer id="inscricao" class="bg-fci-navy text-white py-24 px-4 text-center">
-  <div class="max-w-2xl mx-auto">
-    <h2 class="text-3xl sm:text-4xl font-black mb-6 italic font-serif">Tradição e inovação em ensino e tradução.</h2>
-    <p class="text-slate-400 mb-10 font-light text-sm sm:text-base">As inscrições garantem acesso a todas as palestras e certificado de participação.</p>
-    <a href="https://forms.gle/zde2sgDVdTjP94xDA" target="_blank" rel="noopener noreferrer" class="bg-fci-red text-white px-10 sm:px-12 py-4 sm:py-5 rounded-full font-black text-lg sm:text-xl hover:bg-red-700 transition shadow-2xl inline-block shadow-red-900/20 transform hover:-translate-y-1">Fazer minha inscrição</a>
-    <div class="mt-20 pt-10 border-t border-white/5">
-      <p class="text-[10px] opacity-40 uppercase tracking-[0.5em] font-bold">© 2026 Faculdade Cultura Inglesa</p>
-    </div>
-  </div>
-</footer>
+        function tratarErroImagem() {
+            indiceLogoAtual++;
+            if (indiceLogoAtual < URLs_LOGO.length) {
+                // Tenta carregar o próximo link alternativo
+                logoImagem.src = URLs_LOGO[indiceLogoAtual];
+            } else {
+                // Se todos falharem, exibe o emblema FCI
+                logoImagem.classList.add('hidden');
+                logoBadgePadrao.classList.remove('hidden');
+            }
+        }
 
-<script>
-// Lógica de Geração da Galeria de Fotos (Carrossel / Paginação)
-const photoList = [2, 5, 6, 8, 12, 13, 21, 23, 25, 27, 29, 30, 31, 32, 33, 34, 35, 36, 39, 44, 47, 48, 49, 50, 51, 52];
-const totalPhotos = photoList.length;
-const photosPerPage = 9;
-let currentPage = 1;
-const totalPages = Math.ceil(totalPhotos / photosPerPage);
+        const displayTituloCertificado = document.getElementById('displayTituloCertificado');
+        const displayPreambulo = document.getElementById('displayPreambulo');
+        const displayNome = document.getElementById('displayNome');
+        const displayTextoCorpo = document.getElementById('displayTextoCorpo');
+        const displayHorasTexto = document.getElementById('displayHorasTexto');
 
-function renderGallery(page) {
-  const galleryGrid = document.getElementById('gallery-grid');
-  if (!galleryGrid) return;
+        const btnModParticipante = document.getElementById('btnModParticipante');
+        const btnModPalestrante = document.getElementById('btnModPalestrante');
+        const btnModMonitor = document.getElementById('btnModMonitor');
 
-  let galleryHTML = '';
-  const start = (page - 1) * photosPerPage;
-  const end = Math.min(start + photosPerPage, totalPhotos);
+        function mudarModalidade(mod) {
+            modalidadeAtual = mod;
+            
+            [btnModParticipante, btnModPalestrante, btnModMonitor].forEach(btn => {
+                btn.className = "py-2 text-xs font-semibold rounded-md transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/60";
+            });
 
-  for (let i = start; i < end; i++) {
-    const photoNum = photoList[i];
-    // Uso de aspect-[4/3] e absolute inset-0 para deixar as imagens todas do mesmo tamanho perfeitamente alinhadas
-    galleryHTML += `
-      <div class="overflow-hidden rounded-2xl shadow-sm border border-slate-100 group bg-slate-50 relative aspect-[4/3] flex items-center justify-center">
-        <img loading="lazy" src="foto-${photoNum}.jpg" 
-             onerror="this.src='https://placehold.co/600x400/f8fafc/94a3b8?text=Foto+${photoNum}'" 
-             alt="Semana de Estudos - Foto ${photoNum}" 
-             class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-      </div>
-    `;
-  }
+            if (mod === 'participante') {
+                btnModParticipante.className = "py-2 text-xs font-semibold rounded-md transition text-white bg-red-600 shadow-sm";
+                labelNome.innerText = "Nome completo do participante";
+                campoTituloPalestra.classList.add('hidden');
+                campoCargaHoraria.classList.remove('hidden');
+                inputNome.placeholder = "Ex: Juliana Maria de Souza";
+            } else if (mod === 'palestrante') {
+                btnModPalestrante.className = "py-2 text-xs font-semibold rounded-md transition text-white bg-red-600 shadow-sm";
+                labelNome.innerText = "Nome completo do palestrante";
+                campoTituloPalestra.classList.remove('hidden');
+                campoCargaHoraria.classList.remove('hidden');
+                inputNome.placeholder = "Ex: André Cândido Ubriaco de Oliveira";
+            } else if (mod === 'monitor') {
+                btnModMonitor.className = "py-2 text-xs font-semibold rounded-md transition text-white bg-red-600 shadow-sm";
+                labelNome.innerText = "Nome completo do(a) monitor(a)";
+                campoTituloPalestra.classList.add('hidden');
+                campoCargaHoraria.classList.remove('hidden');
+                inputNome.placeholder = "Ex: Regina Borovac";
+            }
 
-  galleryGrid.innerHTML = galleryHTML;
-  updatePaginationControls();
-}
+            autocompleteList.classList.add('hidden');
+            gerar();
+        }
 
-// Animação de Fade (Suavidade ao trocar a página)
-function changePage(newPage) {
-  const grid = document.getElementById('gallery-grid');
-  grid.classList.add('opacity-0'); 
-  
-  setTimeout(() => {
-    currentPage = newPage;
-    renderGallery(currentPage);
-    grid.classList.remove('opacity-0'); 
-  }, 200); // Aguarda o fade out antes de renderizar novas fotos
-}
+        function gerar() {
+            const nome = inputNome.value.trim();
+            const horas = inputHoras.value || "30";
+            const titulo = inputTitulo.value.trim();
 
-function prevPage() {
-  if (currentPage > 1) changePage(currentPage - 1);
-}
+            if (modalidadeAtual === 'participante') {
+                displayTituloCertificado.innerText = "Certificado de Participação";
+                displayPreambulo.innerText = "Certificamos que, para os devidos fins, o(a) aluno(a)";
+                displayNome.innerText = nome || "[Nome do Participante]";
+                displayTextoCorpo.innerHTML = `participou da <b>XIII Semana de Estudos da Faculdade Cultura Inglesa</b>, contemplando palestras magnas, oficinas pedagógicas, mesas-redondas e sessões de comunicação científica, realizada entre <b>20 e 24 de outubro de 2026</b>, com carga horária total de <b>${horas} horas</b>.`;
+            } else if (modalidadeAtual === 'palestrante') {
+                displayTituloCertificado.innerText = "Certificado de Palestrante";
+                displayPreambulo.innerText = "Certificamos que, para os devidos fins,";
+                displayNome.innerText = nome || "[Nome do Palestrante]";
+                const tituloFormatado = titulo ? `apresentando a palestra/comunicação intitulada <i>"${titulo}"</i>,` : `apresentando discussões e trabalhos acadêmicos,`;
+                displayTextoCorpo.innerHTML = `contribuiu como <b>palestrante</b> na <b>XIII Semana de Estudos da Faculdade Cultura Inglesa</b>, ${tituloFormatado} realizada entre <b>20 e 24 de outubro de 2026</b>, com carga horária total de <b>${horas} horas</b>.`;
+            } else if (modalidadeAtual === 'monitor') {
+                displayTituloCertificado.innerText = "Certificado de Monitoria";
+                displayPreambulo.innerText = "Certificamos que, para os devidos fins, o(a) aluno(a)";
+                displayNome.innerText = nome || "[Nome do(a) Monitor(a)]";
+                displayTextoCorpo.innerHTML = `atuou como <b>Monitor(a)</b> na <b>XIII Semana de Estudos da Faculdade Cultura Inglesa</b>, apoiando as atividades acadêmicas, transmissões online e mediação de salas, realizada entre <b>20 e 24 de outubro de 2026</b>, com carga horária total de <b>${horas} horas</b>.`;
+            }
+        }
 
-function nextPage() {
-  if (currentPage < totalPages) changePage(currentPage + 1);
-}
+        function filtrarNomes() {
+            const query = inputNome.value.toLowerCase().trim();
+            if (!query) {
+                autocompleteList.classList.add('hidden');
+                autocompleteList.innerHTML = '';
+                gerar();
+                return;
+            }
 
-function updatePaginationControls() {
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const pageIndicator = document.getElementById('page-indicator');
+            let resultados = [];
 
-  if (prevBtn) prevBtn.disabled = currentPage === 1;
-  if (nextBtn) nextBtn.disabled = currentPage === totalPages;
-  if (pageIndicator) pageIndicator.innerText = `Página ${currentPage} de ${totalPages}`;
-}
+            if (modalidadeAtual === 'participante') {
+                resultados = baseDados.participantes
+                    .filter(n => n.toLowerCase().includes(query))
+                    .map(n => ({ nome: n, extra: "Inscrito FCI" }));
+            } else if (modalidadeAtual === 'palestrante') {
+                resultados = baseDados.palestrantes
+                    .filter(p => p.nome.toLowerCase().includes(query))
+                    .map(p => ({ nome: p.nome, extra: p.titulo }));
+            } else if (modalidadeAtual === 'monitor') {
+                resultados = baseDados.monitores
+                    .filter(m => m.toLowerCase().includes(query))
+                    .map(m => ({ nome: m, extra: "Comissão / Monitoria" }));
+            }
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderGallery(currentPage);
-});
+            if (resultados.length === 0) {
+                autocompleteList.classList.add('hidden');
+                autocompleteList.innerHTML = '';
+            } else {
+                autocompleteList.innerHTML = resultados.slice(0, 6).map(item => `
+                    <div 
+                        onclick="selecionarSugestao('${item.nome.replace(/'/g, "\\'")}', '${(item.extra || '').replace(/'/g, "\\'")}')" 
+                        class="px-3.5 py-2 hover:bg-red-50 hover:text-red-700 cursor-pointer border-b border-slate-100 last:border-none flex flex-col justify-start text-left"
+                    >
+                        <span class="font-medium text-slate-800">${item.nome}</span>
+                        ${item.extra ? `<span class="text-[11px] text-slate-400 truncate">${item.extra}</span>` : ''}
+                    </div>
+                `).join('');
+                autocompleteList.classList.remove('hidden');
+            }
 
-// Lógica de Troca de Edição
-function switchEdition(edition) {
-  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-  document.querySelectorAll('.edition-btn').forEach(btn => btn.classList.remove('active'));
+            gerar();
+        }
 
-  const targetTab = document.getElementById('edition-' + edition);
-  const targetBtn = document.getElementById('btn-' + edition);
+        function selecionarSugestao(nome, extra) {
+            inputNome.value = nome;
+            if (modalidadeAtual === 'palestrante' && extra && extra !== "Inscrito FCI") {
+                inputTitulo.value = extra;
+            }
+            autocompleteList.classList.add('hidden');
+            autocompleteList.innerHTML = '';
+            gerar();
+        }
 
-  if (targetTab) targetTab.classList.add('active');
-  if (targetBtn) targetBtn.classList.add('active');
+        // Fechar a lista de sugestões ao clicar fora do campo
+        document.addEventListener('click', function(e) {
+            if (!inputNome.contains(e.target) && !autocompleteList.contains(e.target)) {
+                autocompleteList.classList.add('hidden');
+            }
+        });
 
-  const label = document.getElementById('nav-edition-label');
-  if (label) label.innerText = 'Edição ' + edition;
-
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-</script>
+        // Inicialização automática ao carregar a página
+        window.onload = function() {
+            configurarLogoFixo();
+            gerar();
+        };
+    </script>
 </body>
 </html>
